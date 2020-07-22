@@ -1,0 +1,40 @@
+{
+  "name": "qingbing/zf-helper",
+  "description": "常用的方法和函数，多为静态类，抽象类，接口类等",
+  "type": "library",
+  "license": "MIT",
+  "keywords": [
+    "qingbing",
+    "zf",
+    "php",
+    "helper",
+    "function"
+  ],
+  "homepage": "http://www.phpcorner.net",
+  "authors": [
+    {
+      "name": "qingbing",
+      "email": "780042175@qq.com"
+    }
+  ],
+  "require": {
+    "ext-json": "*",
+    "php": "^7.1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.5"
+  },
+  "autoload": {
+    "files": [
+      "src/functions.php"
+    ],
+    "psr-4": {
+      "Zf\\Helper\\": "src/helpers"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Test\\": "test"
+    }
+  }
+}
