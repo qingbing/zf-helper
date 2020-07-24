@@ -57,7 +57,7 @@ class Format
      */
     public static function datetime($time = null, $nowIfNull = true, $format = 'Y-m-d H:i:s')
     {
-        if (empty($time)) {
+        if (null === $time) {
             return $nowIfNull ? date($format) : null;
         } else {
             return date($format, $time);

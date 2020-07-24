@@ -30,7 +30,7 @@ class ReqHelper
     public static function getLogId(): string
     {
         if (!self::$_logId) {
-            if ($_SERVER['HTTP_ZF_LOG_ID']) {
+            if (isset($_SERVER['HTTP_ZF_LOG_ID'])) {
                 $logId = $_SERVER['HTTP_ZF_LOG_ID'];
             } else if (isset($_REQUEST['ZF_LOG_ID'])) {
                 $logId = $_REQUEST['ZF_LOG_ID'];
