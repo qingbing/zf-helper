@@ -32,7 +32,7 @@ abstract class Singleton extends Base
     /**
      * 获取实例
      *
-     * @return Singleton
+     * @return $this
      */
     public static function getInstance(): Singleton
     {

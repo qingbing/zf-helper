@@ -41,3 +41,57 @@ if (!function_exists('is_json')) {
         return 0 === json_last_error();
     }
 }
+
+if (!function_exists('trim_data')) {
+    /**
+     * 对数据递归使用 trim 函数
+     *
+     * @param mixed $data
+     * @param string $charlist
+     * @return array|string|mixed
+     */
+    function trim_data($data, $charlist = " \t\n\r\0\x0B")
+    {
+        if (is_object($data)) {
+            foreach ($data as $property => $datum) {
+                $data->{$property} = trim_data($datum, $charlist);
+            }
+            return $data;
+        } elseif (is_array($data)) {
+            foreach ($data as $k => $datum) {
+                $data[$k] = trim_data($datum, $charlist);
+            }
+            return $data;
+        } else {
+            return trim($data, $charlist);
+        }
+    }
+}
+
+if (!function_exists('explode_data')) {
+    /**
+     * 对数据进行 explode 处理，需要去掉空数据和数据左右空字符
+     *
+     * @param $string
+     * @param string $delimiter
+     * @return array
+     */
+    function explode_data($string, string $delimiter = ',')
+    {
+        if (is_array($string)) {
+            return $string;
+        }
+        if (!is_string($string)) {
+            return [$string];
+        }
+        $string = trim($string, " \t\n\r\0\x0B" . $delimiter);
+        $R      = [];
+        foreach (explode($delimiter, $string) as $value) {
+            if ("" === ($value = trim($value))) {
+                continue;
+            }
+            array_push($R, $value);
+        }
+        return $R;
+    }
+}
