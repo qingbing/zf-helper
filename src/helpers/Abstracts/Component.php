@@ -16,16 +16,50 @@ namespace Zf\Helper\Abstracts;
 abstract class Component extends Base
 {
     /**
-     * 魔术方法：构造函数， final 化，不允许覆盖
+     * 魔术方法：构造函数，禁用外部 new
      */
-    final public function __construct()
+    final private function __construct()
     {
     }
 
     /**
-     * 属性赋值后执行函数
+     * 存储实例
+     *
+     * @var array
      */
-    public function init()
+    private static $_instances = [];
+
+    /**
+     * 获取实例
+     *
+     * @return $this
+     */
+    public static function getInstance(array $config = null): Component
+    {
+        $className = static::class;
+        $hashKey   = $className . serialize($config);
+        if (!isset(self::$_instances[$hashKey])) {
+            $class = new $className();
+            // 相当于类的构造函数函数
+            /* @var $class $this */
+            $class->configure($config);
+            $class->init();
+            self::$_instances[$hashKey] = $class;
+        }
+        return self::$_instances[$hashKey];
+    }
+
+    /**
+     * 构造函数后执行
+     */
+    protected function init()
+    {
+    }
+
+    /**
+     * 魔术方法：禁用实例 clone
+     */
+    final private function __clone()
     {
     }
 }

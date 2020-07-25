@@ -21,8 +21,11 @@ trait TConfigure
      * @param array $properties
      * @param bool $strict
      */
-    public function configure(array $properties, $strict = false)
+    public function configure(array $properties = null, $strict = false)
     {
+        if (empty($properties)) {
+            return;
+        }
         if ($strict) {
             foreach ($properties as $property => $value) {
                 // 对象定义了该属性才为属性赋值
