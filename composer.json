@@ -27,6 +27,7 @@
   },
   "autoload": {
     "files": [
+      "src/constant.php",
       "src/functions.php"
     ],
     "psr-4": {
