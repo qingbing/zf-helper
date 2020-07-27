@@ -108,19 +108,19 @@ class JwtHelper extends Component
     /**
      * 验证token是否有效,默认验证exp,nbf,iat时间
      *
-     * @param $token
-     * @return array
+     * @param string $token
+     * @return \Lcobucci\JWT\Token
      * @throws Exception
      */
-    public function verifyToken(string $token): array
+    public function verifyToken(string $token)
     {
-        $parse = (new Parser())->parse($token);
-        if (!$parse->verify(new Sha256(), $this->publicKey)) {
+        $parser = (new Parser())->parse($token);
+        if (!$parser->verify(new Sha256(), $this->publicKey)) {
             throw new Exception('无效的token', 1010008001);
         }
-        if ($parse->isExpired()) {
+        if ($parser->isExpired()) {
             throw new Exception('token 已过期', 1010008002);
         }
-        return $parse->getClaims();
+        return $parser;
     }
 }
