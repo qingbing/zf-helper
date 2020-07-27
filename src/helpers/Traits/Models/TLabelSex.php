@@ -5,28 +5,27 @@
  * @copyright   Chengdu Qb Technology Co., Ltd.
  */
 
-namespace Zf\Helper\Traits;
+namespace Zf\Helper\Traits\Models;
 
 /**
- * 模型的通用常量定义
+ * 性别标签 片段
  *
- * Trait TModelConst
- * @package Zf\Helper\Traits
+ * Class TSexLabel
+ * @package Zf\Helper\Traits\Models
  */
-trait TModelConst
+trait TLabelSex
 {
     /**
      * 性别标签
      *
      * @return array
      */
-    public static function sexes()
+    public static function sexLabels()
     {
         return [
             SEX_UNKNOWN => '密码',
-            SEX_MALE    => '男',
-            SEX_FEMALE  => '女',
+            SEX_MALE    => '男士',
+            SEX_FEMALE  => '女士',
         ];
     }
-
 }
