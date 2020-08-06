@@ -23,7 +23,7 @@ trait TLabelSex
     public static function sexLabels()
     {
         return [
-            SEX_UNKNOWN => '密码',
+            SEX_UNKNOWN => '秘密',
             SEX_MALE    => '男士',
             SEX_FEMALE  => '女士',
         ];
