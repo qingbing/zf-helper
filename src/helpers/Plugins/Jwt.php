@@ -5,7 +5,7 @@
  * @copyright   Chengdu Qb Technology Co., Ltd.
  */
 
-namespace Zf\Helper;
+namespace Zf\Helper\Plugins;
 
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Parser;
@@ -17,10 +17,10 @@ use Zf\Helper\Exceptions\Exception;
 /**
  * Jwt 封装
  *
- * Class JwtHelper
- * @package Zf\Helper
+ * Class Jwt
+ * @package Zf\Helper\Plugins
  */
-class JwtHelper extends Component
+class Jwt extends Component
 {
     /**
      * @var string 公钥
