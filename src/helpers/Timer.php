@@ -48,7 +48,7 @@ class Timer
     public static function end($type = 'app')
     {
         if (!isset(self::$_timeStore[$type])) {
-            throw new Exception(interpolate('没有"{type}"对应的 timer', [
+            throw new Exception(replace('没有"{type}"对应的 timer', [
                 'type' => $type,
             ]), 1010006001);
         }

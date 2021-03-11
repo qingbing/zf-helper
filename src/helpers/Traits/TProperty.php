@@ -30,12 +30,12 @@ trait TProperty
         if (null !== ($setter = $this->setterName($property))) {
             $this->$setter($value);
         } else if (null !== $this->getterName($property)) {
-            throw new PropertyException(interpolate('尝试写入read-only属性"{class}.{property}"', [
+            throw new PropertyException(replace('尝试写入read-only属性"{class}.{property}"', [
                 'class'    => get_class($this),
                 'property' => $property,
             ]), 1010001001);
         } else {
-            throw new PropertyException(interpolate('尝试写入不存在的属性"{class}.{property}"', [
+            throw new PropertyException(replace('尝试写入不存在的属性"{class}.{property}"', [
                 'class'    => get_class($this),
                 'property' => $property,
             ]), 1010001002);
@@ -56,12 +56,12 @@ trait TProperty
             return $this->{$getter}();
         }
         if (null !== $this->setterName($property)) {
-            throw new PropertyException(interpolate('尝试读取write-only属性"{class}.{property}"。', [
+            throw new PropertyException(replace('尝试读取write-only属性"{class}.{property}"。', [
                 'class'    => get_class($this),
                 'property' => $property,
             ]), 1010001003);
         } else {
-            throw new PropertyException(interpolate('尝试读取不存在的属性"{class}.{property}"', [
+            throw new PropertyException(replace('尝试读取不存在的属性"{class}.{property}"', [
                 'class'    => get_class($this),
                 'property' => $property,
             ]), 1010001004);
@@ -80,7 +80,7 @@ trait TProperty
         if (null !== ($setter = $this->setterName($property))) {
             $this->$setter(null);
         } else if (null !== $this->getterName($property)) {
-            throw new PropertyException(interpolate('尝试删除read-only属性"{class}.{property}"', [
+            throw new PropertyException(replace('尝试删除read-only属性"{class}.{property}"', [
                 'class'    => get_class($this),
                 'property' => $property,
             ]), 1010001005);

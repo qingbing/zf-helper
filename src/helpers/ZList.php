@@ -142,7 +142,7 @@ class ZList implements \Countable, \IteratorAggregate, \ArrayAccess
     protected function insertAt(int $index, $item)
     {
         if ($this->getReadOnly()) {
-            throw new Exception(interpolate('List({list})为只读，不允许执行插入操作', [
+            throw new Exception(replace('List({list})为只读，不允许执行插入操作', [
                 'list' => get_class($this),
             ]), 1010004002);
         }
@@ -153,7 +153,7 @@ class ZList implements \Countable, \IteratorAggregate, \ArrayAccess
             array_splice($this->_data, $index, 0, [$item]);
             $this->_count++;
         } else {
-            throw new Exception(interpolate('List({list})索引"{index}"已超出范围', [
+            throw new Exception(replace('List({list})索引"{index}"已超出范围', [
                 'list'  => get_class($this),
                 'index' => $index,
             ]), 1010004003);
@@ -171,7 +171,7 @@ class ZList implements \Countable, \IteratorAggregate, \ArrayAccess
     protected function removeAt(int $index)
     {
         if ($this->getReadOnly()) {
-            throw new Exception(interpolate('List({list})为只读，不允许执行插入操作', [
+            throw new Exception(replace('List({list})为只读，不允许执行插入操作', [
                 'list' => get_class($this),
             ]), 1010004004);
         }
@@ -186,7 +186,7 @@ class ZList implements \Countable, \IteratorAggregate, \ArrayAccess
                 return $item;
             }
         } else {
-            throw new Exception(interpolate('List({list})索引"{index}"已超出范围', [
+            throw new Exception(replace('List({list})索引"{index}"已超出范围', [
                 'list'  => get_class($this),
                 'index' => $index,
             ]), 1010004005);
@@ -208,7 +208,7 @@ class ZList implements \Countable, \IteratorAggregate, \ArrayAccess
         } elseif ($index >= 0 && $index < $this->_count) {
             return $this->_data[$index];
         } else {
-            throw new Exception(interpolate('List({list})索引"{index}"已超出范围', [
+            throw new Exception(replace('List({list})索引"{index}"已超出范围', [
                 'list'  => get_class($this),
                 'index' => $index,
             ]), 1010004006);

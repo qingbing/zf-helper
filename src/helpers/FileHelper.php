@@ -179,7 +179,7 @@ class FileHelper
 
         $folder = @opendir($src);
         if ($folder === false) {
-            throw new Exception(interpolate('不能打开目录"{path}"', [
+            throw new Exception(replace('不能打开目录"{path}"', [
                 'path' => $src,
             ]), 1010002002);
         }

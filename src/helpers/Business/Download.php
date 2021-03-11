@@ -28,7 +28,7 @@ class Download
     public static function file(string $path, string $downloadName = null)
     {
         if (!file_exists($path)) {
-            throw new ParameterException(interpolate('找不到需要下载的文件"{file}"', [
+            throw new ParameterException(replace('找不到需要下载的文件"{file}"', [
                 'file' => $path,
             ]), 1010007001);
         }
