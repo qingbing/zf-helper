@@ -5,7 +5,7 @@
  * @copyright   Chengdu Qb Technology Co., Ltd.
  */
 
-if (!function_exists('interpolate')) {
+if (!function_exists('replace')) {
     /**
      * 信息模版替换
      *
@@ -14,7 +14,7 @@ if (!function_exists('interpolate')) {
      * @param bool $withQuote
      * @return string
      */
-    function interpolate(string $message, array $context = [], bool $withQuote = false)
+    function replace(string $message, array $context = [], bool $withQuote = false)
     {
         $replace = [];
         if (!$withQuote) {
@@ -39,6 +39,22 @@ if (!function_exists('is_json')) {
     {
         json_decode($var);
         return 0 === json_last_error();
+    }
+}
+
+if (!function_exists('is_datetime')) {
+    /**
+     * 判断一个变量是否是有效的日期格式
+     *
+     * @param string $var
+     * @param string $delimiter
+     * @return bool
+     */
+    function is_datetime(string $var, $delimiter = '-')
+    {
+        $pattern = '/^(\d{2})?\d{2}{delimiter}[0|1]?\d{delimiter}[0-3]?\d( [0-2]?\d:[0-5]?\d:[0-5]?\d)?$/';
+        $pattern = replace($pattern, ['delimiter' => $delimiter]);
+        return 1 === preg_match($pattern, $var);
     }
 }
 
