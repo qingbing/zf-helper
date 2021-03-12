@@ -18,7 +18,7 @@ abstract class Factory extends Base
     /**
      * 魔术方法：构造函数，禁用外部 new
      */
-    private function __construct()
+    final private function __construct()
     {
     }
 
