@@ -14,6 +14,7 @@
 
 ## 业务类
 1. [文件下载类 ： Download](doc/helpers/Business/Download.md)
+1. [时间段获取 ： DateRange](doc/helpers/Business/DateRange.md)
 
 
 ## 异常类定义
