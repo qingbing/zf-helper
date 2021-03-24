@@ -92,7 +92,7 @@ class ZList implements \Countable, \IteratorAggregate, \ArrayAccess
                 $this->push($item);
             }
         } elseif (null !== $data) {
-            throw new ParameterException('实例化列表参数必须是数组或可遍历的对象', 1010004001);
+            throw new ParameterException('实例化列表参数必须是数组或可遍历的对象', 1010002001);
         }
     }
 
@@ -144,7 +144,7 @@ class ZList implements \Countable, \IteratorAggregate, \ArrayAccess
         if ($this->getReadOnly()) {
             throw new Exception(replace('List({list})为只读，不允许执行插入操作', [
                 'list' => get_class($this),
-            ]), 1010004002);
+            ]), 1010002002);
         }
 
         if ($this->_count === $index) {
@@ -156,7 +156,7 @@ class ZList implements \Countable, \IteratorAggregate, \ArrayAccess
             throw new Exception(replace('List({list})索引"{index}"已超出范围', [
                 'list'  => get_class($this),
                 'index' => $index,
-            ]), 1010004003);
+            ]), 1010002003);
         }
     }
 
@@ -173,7 +173,7 @@ class ZList implements \Countable, \IteratorAggregate, \ArrayAccess
         if ($this->getReadOnly()) {
             throw new Exception(replace('List({list})为只读，不允许执行插入操作', [
                 'list' => get_class($this),
-            ]), 1010004004);
+            ]), 1010002004);
         }
 
         if ($index >= 0 && $index < $this->_count) {
@@ -189,7 +189,7 @@ class ZList implements \Countable, \IteratorAggregate, \ArrayAccess
             throw new Exception(replace('List({list})索引"{index}"已超出范围', [
                 'list'  => get_class($this),
                 'index' => $index,
-            ]), 1010004005);
+            ]), 1010002005);
         }
     }
 
@@ -211,7 +211,7 @@ class ZList implements \Countable, \IteratorAggregate, \ArrayAccess
             throw new Exception(replace('List({list})索引"{index}"已超出范围', [
                 'list'  => get_class($this),
                 'index' => $index,
-            ]), 1010004006);
+            ]), 1010002006);
         }
     }
 
@@ -233,7 +233,7 @@ class ZList implements \Countable, \IteratorAggregate, \ArrayAccess
                 $this->push($item);
             }
         } elseif ($data !== null) {
-            throw new ParameterException('列表合并参数必须是数组或可遍历的对象', 1010004007);
+            throw new ParameterException('列表合并参数必须是数组或可遍历的对象', 1010002007);
         }
     }
 

@@ -7,6 +7,10 @@
 
 namespace Zf\Helper;
 
+use DateTime;
+use DateTimeZone;
+use Exception;
+
 /**
  * 常用格式化
  *
@@ -67,28 +71,27 @@ class Format
     /**
      * 时区对象
      *
-     * @var \DateTimeZone
+     * @var DateTimeZone
      */
     private static $timezone;
 
     /**
-     * 获取纳米级时间表示
+     * 获取当前纳米级时间表示
      *
      * @return string
-     *
-     * @throws \Exception
+     * @throws Exception
      */
-    public static function microDateTime()
+    public static function microDatetime()
     {
         // 确保时区是设置的
         if (!self::$timezone) {
-            self::$timezone = new \DateTimeZone(date_default_timezone_get() ?: 'PRC');
+            self::$timezone = new DateTimeZone(date_default_timezone_get() ?: 'PRC');
         }
         // php7.1+ 始终开启的纳秒
         if (PHP_VERSION_ID < 70100) {
-            $ts = \DateTime::createFromFormat('U.u', sprintf('%.6F', microtime(true)), self::$timezone);
+            $ts = DateTime::createFromFormat('U.u', sprintf('%.6F', microtime(true)), self::$timezone);
         } else {
-            $ts = new \DateTime(null, self::$timezone);
+            $ts = new DateTime(null, self::$timezone);
         }
         $ts->setTimezone(self::$timezone);
         return $ts->format('Y-m-d H:i:s.u');

@@ -11,10 +11,10 @@ use Zf\Helper\Exceptions\ClassException;
 use \ReflectionClass;
 use \ReflectionException;
 
-class Object
+class Obj
 {
     /**
-     * 创建类对象，类中可以实例户
+     * 创建类实例
      *
      * @param mixed $config
      * @return mixed
@@ -28,7 +28,7 @@ class Object
             $config = ['class' => $config];
         }
         if (!isset($config['class'])) {
-            throw new ClassException('创建类实例配置中必须包含"class"元素', 1010005001);
+            throw new ClassException('创建类实例配置中必须包含"class"元素', 1010004001);
         }
 
         $className = $config['class'];

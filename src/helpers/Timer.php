@@ -25,7 +25,7 @@ class Timer
     static private $_timeStore = [];
 
     /**
-     * 开启一个 TIMER
+     * 开启一个timer
      *
      * @param string $type
      * @return mixed|string
@@ -35,11 +35,11 @@ class Timer
         if (isset(self::$_timeStore[$type])) {
             return self::$_timeStore[$type];
         }
-        return self::$_timeStore[$type] = self::microTime(false);
+        return self::$_timeStore[$type] = self::microtime();
     }
 
     /**
-     * 获取一个 TIMER 存活的时间
+     * 结束timer并获取一个timer存活的时间
      * @param string $type
      * @return string
      *
@@ -50,9 +50,9 @@ class Timer
         if (!isset(self::$_timeStore[$type])) {
             throw new Exception(replace('没有"{type}"对应的 timer', [
                 'type' => $type,
-            ]), 1010006001);
+            ]), 1010005001);
         }
-        $e = self::microTime(false);
+        $e = self::microtime();
         $s = self::$_timeStore[$type];
         unset(self::$_timeStore[$type]);
         return sprintf('%.6f', $e - $s);
@@ -60,16 +60,11 @@ class Timer
 
     /**
      * 获取当前的浮点型时间
-     * @param bool $isFormat
-     * @return string
+     *
+     * @return mixed
      */
-    public static function microTime($isFormat = true)
+    public static function microtime()
     {
-        if ($isFormat) {
-            list($microSec, $sec) = explode(" ", microtime());
-            return Format::datetime($sec) . ' ' . substr($microSec, 2, 6);
-        } else {
-            return microtime(true);
-        }
+        return microtime(true);
     }
 }

@@ -32,6 +32,7 @@ abstract class Component extends Base
     /**
      * 获取实例
      *
+     * @param array|null $config 配置属性
      * @return $this
      */
     public static function getInstance(array $config = null): Component

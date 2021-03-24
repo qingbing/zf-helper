@@ -99,7 +99,7 @@ class FileHelper
         if (true === $res) {
             @chmod($dst, $mode);
         } else {
-            throw new Exception('创建目录失败', 1010002001);
+            throw new Exception('创建目录失败', 1010006001);
         }
         return $res;
     }
@@ -181,7 +181,7 @@ class FileHelper
         if ($folder === false) {
             throw new Exception(replace('不能打开目录"{path}"', [
                 'path' => $src,
-            ]), 1010002002);
+            ]), 1010006002);
         }
         while (($file = readdir($folder)) !== false) {
             if ('.' === $file || '..' === $file) {

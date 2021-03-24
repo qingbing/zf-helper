@@ -7,8 +7,6 @@
 
 namespace Zf\Helper;
 
-defined('APP_NAME') or define('APP_NAME', 'ZF');
-
 /**
  * 请求帮助类
  *
@@ -35,15 +33,7 @@ class ReqHelper
             } else if (isset($_REQUEST['ZF_LOG_ID'])) {
                 $logId = $_REQUEST['ZF_LOG_ID'];
             } else {
-                $i     = mt_rand(1, 0x7FFFFF);
-                $logId = sprintf(
-                    "%s%08x%06x%04x%06x",
-                    APP_NAME . '-',
-                    time() & 0xFFFFFFFF,
-                    crc32(substr((string)gethostname(), 0, 256)) >> 8 & 0xFFFFFF,
-                    getmypid() & 0xFFFF,
-                    $i = $i > 0xFFFFFE ? 1 : $i + 1
-                );
+                $logId = Id::uniqid();
             }
             self::$_logId = $logId;
         }
@@ -182,7 +172,7 @@ class ReqHelper
      *
      * @return int
      */
-    public function getPort()
+    public static function getPort()
     {
         return !self::isSecureConnection() && isset($_SERVER['SERVER_PORT']) ? (int)$_SERVER['SERVER_PORT'] : 80;
     }
@@ -192,7 +182,7 @@ class ReqHelper
      *
      * @return int
      */
-    public function getSecurePort()
+    public static function getSecurePort()
     {
         return self::isSecureConnection() && isset($_SERVER['SERVER_PORT']) ? (int)$_SERVER['SERVER_PORT'] : 443;
     }

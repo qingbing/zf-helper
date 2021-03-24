@@ -12,18 +12,18 @@ namespace Zf\Helper\Traits\Models;
  * Class TDeleteLabel
  * @package Zf\Helper\Traits\Models
  */
-class TLabelDelete
+trait TLabelDeleted
 {
     /**
      * 删除状态标签
      *
      * @return array
      */
-    public static function deleteLabels()
+    public static function deletedLabels()
     {
         return [
-            IS_DELETE_NO  => '正常',
-            IS_DELETE_YES => '已删除',
+            IS_DELETED_NO  => '正常',
+            IS_DELETED_YES => '已删除',
         ];
     }
 }
