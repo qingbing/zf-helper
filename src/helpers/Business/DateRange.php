@@ -10,7 +10,8 @@ namespace Zf\Helper\Business;
 use Carbon\Carbon;
 use Exception;
 use Zf\Helper\Abstracts\Factory;
-use Zf\Helper\Exceptions\PropertyException;
+use Zf\Helper\Exceptions\ParameterException;
+use Zf\Helper\Exceptions\RuntimeException;
 
 /**
  * 时间段获取
@@ -100,12 +101,12 @@ class DateRange extends Factory
      *
      * @param string $rangeType
      * @return $this
-     * @throws PropertyException
+     * @throws ParameterException
      */
     public function setRangeType(string $rangeType)
     {
         if (!in_array($rangeType, array_keys(self::types()))) {
-            throw new PropertyException("不支持的单位类型'{$rangeType}'", 1010008001);
+            throw new ParameterException("不支持的单位类型'{$rangeType}'", 1010008001);
         }
         $this->_rangeType = $rangeType;
         return $this;
@@ -129,12 +130,12 @@ class DateRange extends Factory
      *
      * @param string $dataType
      * @return $this
-     * @throws PropertyException
+     * @throws ParameterException
      */
     public function setDataType(string $dataType)
     {
         if (null !== $this->_dataType) {
-            throw new PropertyException("时间类型已经设置", 1010008002);
+            throw new ParameterException("时间类型已经设置", 1010008002);
         }
         $this->_dataType = $dataType;
         return $this;
@@ -202,10 +203,10 @@ class DateRange extends Factory
     public function getRange()
     {
         if (empty($this->_start) || empty($this->_end)) {
-            throw new PropertyException("必须设置开始时间和结束时间", 1010008003);
+            throw new RuntimeException("必须设置开始时间和结束时间", 1010008003);
         }
         if ($this->_start->isAfter($this->_end)) {
-            throw new PropertyException("开始时间必须大于结束时间", 1010008004);
+            throw new RuntimeException("开始时间必须大于结束时间", 1010008004);
         }
         if (self::DATA_TYPE_DATETIME === $this->_dataType) {
             $this->_startFormat = $this->_dateFormat . " 00:00:00";

@@ -25,6 +25,9 @@
 1. [coding类异常 ： PropertyException](doc/helpers/Exceptions/PropertyException.md)
 1. [运行时异常 ： RuntimeException](doc/helpers/Exceptions/RuntimeException.md)
 
+## 身份辅助类
+1. [身份证号解析 ： IdentityParser](doc/helpers/Identity/IdentityParser.md)
+
 
 ## 迭代类
 1. [List迭代器 ： ListIterator](doc/helpers/Iterators/ListIterator.md)
@@ -73,5 +76,6 @@
 6. 1010006 : \Zf\Helper\FileHelper
 7. 1010007 : \Zf\Helper\Business\Download
 8. 1010008 : \Zf\Helper\Business\DateRange
+9. 1010009 : \Zf\Helper\Identity\IdentityParser
 
 
