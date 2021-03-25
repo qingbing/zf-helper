@@ -30,6 +30,8 @@ use Zf\Helper\Traits\TProperty;
  *
  * Class ZList
  * @package Zf\Helper
+ *
+ * @property array $data
  */
 class ZList implements \Countable, \IteratorAggregate, \ArrayAccess
 {
@@ -424,5 +426,15 @@ class ZList implements \Countable, \IteratorAggregate, \ArrayAccess
     public function offsetUnset($offset)
     {
         $this->removeAt($offset);
+    }
+
+    /**
+     * 获取全部数据
+     *
+     * @return array
+     */
+    public function getData(): array
+    {
+        return $this->_data;
     }
 }

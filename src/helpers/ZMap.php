@@ -18,6 +18,8 @@ use Zf\Helper\Traits\TProperty;
  *
  * Class ZMap
  * @package Zf\Helper
+ *
+ * @property array $data
  */
 class ZMap implements \Countable, \IteratorAggregate, \ArrayAccess
 {
@@ -209,7 +211,7 @@ class ZMap implements \Countable, \IteratorAggregate, \ArrayAccess
             throw new Exception('只读map，不允许执行添加操作', 1010003003);
         }
         if (null === $key) {
-            $this->_data[] = $value;
+            $this->remove($key);
         } else {
             $this->_data[$key] = $value;
         }
@@ -347,5 +349,15 @@ class ZMap implements \Countable, \IteratorAggregate, \ArrayAccess
     public function offsetUnset($offset)
     {
         $this->remove($offset);
+    }
+
+    /**
+     * 获取全部数据
+     *
+     * @return array
+     */
+    public function getData(): array
+    {
+        return $this->_data;
     }
 }
