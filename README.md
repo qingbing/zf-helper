@@ -65,6 +65,7 @@
 1. [数据登记容器 ： Registry](doc/helpers/Registry.md)
 1. [请求获取类 ： ReqHelper](doc/helpers/ReqHelper.md)
 1. [记时器 ： Timer](doc/helpers/Timer.md)
+1. [功能集合 ： Util](doc/helpers/Util.md)
 1. [列表，提供push，pop，unshift，shift等操作 ： ZList](doc/helpers/ZList.md)
 1. [Map，提供add,get,remove,clear,count等操作 ： ZMap](doc/helpers/ZMap.md)
 
