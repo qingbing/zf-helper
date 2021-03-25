@@ -1,4 +1,4 @@
-# 助手类 Openssl ： 加密和解密封装
+# 助手类 Openssl ： openssl加密和解密封装
 - 加密功能 ： encrypt($content, $subLength = 117)
 - 解密功能 ： decrypt(string $crypt)
 - 需要配置公钥、私钥、密码

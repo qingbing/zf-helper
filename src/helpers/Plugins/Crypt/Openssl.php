@@ -7,8 +7,8 @@
 
 namespace Zf\Helper\Plugins\Crypt;
 
-
 use Zf\Helper\Abstracts\Component;
+use Zf\Helper\Plugins\ICrypt;
 
 /**
  * Openssl 加密和解密封装
@@ -16,7 +16,7 @@ use Zf\Helper\Abstracts\Component;
  * Class Openssl
  * @package Zf\Helper\Crypt
  */
-class Openssl extends Component
+class Openssl extends Component implements ICrypt
 {
     /**
      * @var string openssl 公钥
@@ -52,14 +52,14 @@ class Openssl extends Component
             $cryptStr .= $tCryptStr;
         }
         // 对数据进行 base64 编码
-        $cryptStr = base64_encode($cryptStr);
+        $cryptStr = Base64::encrypt($cryptStr);
         // 销毁公钥KEY
         openssl_free_key($publicKey);
         return $cryptStr;
     }
 
     /**
-     * 数据解密，如果确定加密的数据为数组
+     * 数据解密
      *
      * @param string $crypt 需要解密的数据
      * @return mixed
@@ -70,7 +70,7 @@ class Openssl extends Component
         $privateKey = openssl_get_privatekey($this->privateKey, $this->passphrase);
         $cryptStr   = "";
         // 将加密数据 base64 解码后128长度分片：openssl_public_encrypt 加密串的长度
-        $ca = str_split(base64_decode($crypt), 128);
+        $ca = str_split(Base64::decrypt($crypt), 128);
         foreach ($ca as $c) {
             openssl_private_decrypt($c, $tCryptStr, $privateKey);//私钥解密
             $cryptStr .= $tCryptStr;
