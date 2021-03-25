@@ -35,8 +35,11 @@
 
 
 ## 插件（需要配置属性）
+1. [无状态的json-web-token ： Jwt](doc/helpers/Plugins/Jwt.md)
+
 ### 加密类
-1. [加密和解密封装 ： Openssl](doc/helpers/Plugins/Crypt/Openssl.md)
+1. [base64对数据加密 ： Base64](doc/helpers/Plugins/Crypt/Base64.md)
+1. [openssl加密和解密封装 ： Openssl](doc/helpers/Plugins/Crypt/Openssl.md)
 
 
 ## Trait片段
