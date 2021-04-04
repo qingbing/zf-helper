@@ -19,25 +19,25 @@ class ReqHelper
      * 请求 LOG-ID
      * @var string
      */
-    private static $_logId;
+    private static $_traceId;
 
     /**
      * 获取当前的请求的 LOG-ID
      * @return string
      */
-    public static function getLogId(): string
+    public static function getTraceId(): string
     {
-        if (!self::$_logId) {
-            if (isset($_SERVER['HTTP_ZF_LOG_ID'])) {
-                $logId = $_SERVER['HTTP_ZF_LOG_ID'];
-            } else if (isset($_REQUEST['ZF_LOG_ID'])) {
-                $logId = $_REQUEST['ZF_LOG_ID'];
+        if (!self::$_traceId) {
+            if (isset($_SERVER['HTTP_ZF_TRACE_ID'])) {
+                $traceId = $_SERVER['HTTP_ZF_TRACE_ID'];
+            } else if (isset($_REQUEST['ZF_TRACE_ID'])) {
+                $traceId = $_REQUEST['ZF_TRACE_ID'];
             } else {
-                $logId = Id::uniqid();
+                $traceId = Id::uniqid();
             }
-            self::$_logId = $logId;
+            self::$_traceId = $traceId;
         }
-        return self::$_logId;
+        return self::$_traceId;
     }
 
     /**

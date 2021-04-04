@@ -14,7 +14,7 @@ if (!function_exists('replace')) {
      * @param bool $withQuote
      * @return string
      */
-    function replace(string $message, array $context = [], bool $withQuote = false)
+    function replace(string $message, array $context = [], bool $withQuote = true)
     {
         $replace = [];
         if (!$withQuote) {
@@ -23,6 +23,8 @@ if (!function_exists('replace')) {
                     $replace['{' . $key . '}'] = $val;
                 }
             }
+        } else {
+            $replace = $context;
         }
         return strtr($message, $replace);
     }
