@@ -2,6 +2,8 @@
 - 1.0.3
     - 修改 replace 函数bug
     - 修改 链路ID为 trace_id 标识符
+- 1.0.4
+    - 添加 openssl密码管理封装类
 
 
 # zf-helper
@@ -20,6 +22,10 @@
 ## 业务类
 1. [文件下载类 ： Download](doc/helpers/Business/Download.md)
 1. [时间段获取 ： DateRange](doc/helpers/Business/DateRange.md)
+
+
+## 加密类
+1. [openssl密码管理封装 ： Openssl](doc/helpers/Crypt/Openssl.md)
 
 
 ## 异常类定义
