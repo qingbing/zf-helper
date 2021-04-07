@@ -39,7 +39,7 @@ class Openssl
         ];
         $pkey   = openssl_pkey_new($config);
         if (false === $pkey) {
-            throw new Exception("生成openssl密钥失败");
+            throw new Exception("生成openssl密钥失败", 1010010001);
         }
 
         openssl_pkey_export($pkey, $privateKey, $passphrase);

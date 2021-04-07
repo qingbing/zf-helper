@@ -92,5 +92,6 @@
 7. 1010007 : \Zf\Helper\Business\Download
 8. 1010008 : \Zf\Helper\Business\DateRange
 9. 1010009 : \Zf\Helper\Identity\IdentityParser
+10. 1010010 : \Zf\Helper\Crypt\Openssl
 
 
