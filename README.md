@@ -4,6 +4,8 @@
     - 修改 链路ID为 trace_id 标识符
 - 1.0.4
     - 添加 openssl密码管理封装类
+- 1.0.5
+    - 将 Register 修改成 DataStore
 
 
 # zf-helper
