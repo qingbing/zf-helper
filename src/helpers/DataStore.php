@@ -13,7 +13,7 @@ namespace Zf\Helper;
  * Class Context
  * @package Zf\Helper
  */
-final class Registry
+final class DataStore
 {
     private static $_data = [];
 

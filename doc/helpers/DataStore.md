@@ -1,4 +1,4 @@
-# 助手类 Registry ： 数据登记容器
+# 助手类 DataStore ： 数据容器
 - 获取登记信息 ： get(string $name, $default = null)
 - 设置登记信息 ： set(string $name, $value = null)
 - 删除一个登记信息 ： del(string $name): bool
@@ -8,14 +8,14 @@
 
 ```php
 // 设置
-Registry::set("name", "qingbing");
+DataStore::set("name", "qingbing");
 // 获取
-var_dump(Registry::get("name", 'xx'));
+var_dump(DataStore::get("name", 'xx'));
 // 判断是否包含
-var_dump(Registry::has("name"));
+var_dump(DataStore::has("name"));
 // 删除
-var_dump(Registry::del("name"));
-var_dump(Registry::has("name"));
+var_dump(DataStore::del("name"));
+var_dump(DataStore::has("name"));
 ```
 
 ## test 结果
