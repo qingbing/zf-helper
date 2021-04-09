@@ -16,28 +16,21 @@ namespace Zf\Helper;
 class ReqHelper
 {
     /**
-     * 请求 LOG-ID
-     * @var string
-     */
-    private static $_traceId;
-
-    /**
-     * 获取当前的请求的 LOG-ID
+     * 获取当前的请求的 TRACE-ID
      * @return string
      */
     public static function getTraceId(): string
     {
-        if (!self::$_traceId) {
+        return DataStore::get(__CLASS__ . ":trackid", function () {
             if (isset($_SERVER['HTTP_ZF_TRACE_ID'])) {
                 $traceId = $_SERVER['HTTP_ZF_TRACE_ID'];
-            } else if (isset($_REQUEST['ZF_TRACE_ID'])) {
-                $traceId = $_REQUEST['ZF_TRACE_ID'];
+            } else if (isset($_REQUEST['ZF-TRACE-ID'])) {
+                $traceId = $_REQUEST['ZF-TRACE-ID'];
             } else {
                 $traceId = Id::uniqid();
             }
-            self::$_traceId = $traceId;
-        }
-        return self::$_traceId;
+            return $traceId;
+        });
     }
 
     /**

@@ -74,7 +74,7 @@ class FileHelper
     public static function putContent(string $file, $content, $append = true)
     {
         if ($append) {
-            return file_put_contents($file, $content, FILE_APPEND | LOCK_EX);
+            return file_put_contents($file, $content . "\n", FILE_APPEND | LOCK_EX);
         }
         return file_put_contents($file, $content, LOCK_EX);
     }

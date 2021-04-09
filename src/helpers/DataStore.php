@@ -21,12 +21,18 @@ final class DataStore
      * 获取登记信息
      *
      * @param string $name
-     * @param mixed $default
+     * @param mixed $defaultOrCallback
      * @return mixed|null
      */
-    public static function get(string $name, $default = null)
+    public static function get(string $name, $defaultOrCallback = null)
     {
-        return isset(self::$_data[$name]) ? self::$_data[$name] : $default;
+        if (!is_callable($defaultOrCallback)) {
+            return isset(self::$_data[$name]) ? self::$_data[$name] : $defaultOrCallback;
+        }
+        if (!isset(self::$_data[$name])) {
+            self::$_data[$name] = call_user_func($defaultOrCallback);
+        }
+        return self::$_data[$name];
     }
 
     /**

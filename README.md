@@ -6,6 +6,8 @@
     - 添加 openssl密码管理封装类
 - 1.0.5
     - 将 Register 修改成 DataStore
+- 1.0.x
+    - 修改
 
 
 # zf-helper

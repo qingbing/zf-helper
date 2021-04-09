@@ -1,5 +1,5 @@
 # 请求助手类 ReqHelper ： 请求获取类
-- 获取当前的请求的LOG-ID ： getLogId(): string
+- 获取当前的请求的Trace-ID ： getTraceId(): string
 - 判断是否是在cli模式下运行 ： isCli(): bool
 - 获取 accept-types,发送端希望接受的数据类型 ： acceptTypes()
 - 返回链接的请求类型 ： requestMethod(): string
@@ -19,7 +19,7 @@
 ## test 代码
 
 ```php
-var_dump('getLogId : ' . ReqHelper::getLogId());
+var_dump('getTraceId : ' . ReqHelper::getTraceId());
 var_dump('acceptTypes : ' . ReqHelper::acceptTypes());
 var_dump('requestMethod : ' . ReqHelper::requestMethod());
 var_dump('requestUri : ' . ReqHelper::requestUri());
@@ -38,7 +38,7 @@ var_dump('getSecurePort : ' . ReqHelper::getSecurePort());
 ## test 结果
 
 ```php
-string(43) "getLogId : 605ae2dcc0a80109fff705ae2dc3f34b"
+string(43) "getTraceId : 605ae2dcc0a80109fff705ae2dc3f34b"
 string(149) "acceptTypes : text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
 string(19) "requestMethod : GET"
 string(18) "requestUri : /test"
