@@ -22,10 +22,10 @@ class ReqHelper
     public static function getTraceId(): string
     {
         return DataStore::get(__CLASS__ . ":trackid", function () {
-            if (isset($_SERVER['HTTP_ZF_TRACE_ID'])) {
-                $traceId = $_SERVER['HTTP_ZF_TRACE_ID'];
-            } else if (isset($_REQUEST['ZF-TRACE-ID'])) {
-                $traceId = $_REQUEST['ZF-TRACE-ID'];
+            if (isset($_SERVER['HTTP_X_TRACE_ID'])) {
+                $traceId = $_SERVER['HTTP_X_TRACE_ID'];
+            } else if (isset($_REQUEST['X-TRACE-ID'])) {
+                $traceId = $_REQUEST['X-TRACE-ID'];
             } else {
                 $traceId = Id::uniqid();
             }
