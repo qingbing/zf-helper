@@ -7,7 +7,8 @@
 - 1.0.5
     - 将 Register 修改成 DataStore
 - 1.0.x
-    - 修改
+    - 增加 DataStore 获取的时的存储功能
+    - 修改 trace-id 的获取的存储方式
 
 
 # zf-helper
