@@ -42,19 +42,14 @@ class Timer
      * 结束timer并获取一个timer存活的时间
      * @param string $type
      * @return string
-     *
-     * @throws Exception
      */
     public static function end($type = 'app')
     {
         if (!isset(self::$_timeStore[$type])) {
-            throw new Exception(replace('没有"{type}"对应的 timer', [
-                'type' => $type,
-            ]), 1010005001);
+            return -1;
         }
         $e = self::microtime();
         $s = self::$_timeStore[$type];
-        unset(self::$_timeStore[$type]);
         return sprintf('%.6f', $e - $s);
     }
 
