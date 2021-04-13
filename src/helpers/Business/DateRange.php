@@ -11,7 +11,7 @@ use Carbon\Carbon;
 use Exception;
 use Zf\Helper\Abstracts\Factory;
 use Zf\Helper\Exceptions\ParameterException;
-use Zf\Helper\Exceptions\RuntimeException;
+use Zf\Helper\Exceptions\BusinessException;
 
 /**
  * 时间段获取
@@ -203,10 +203,10 @@ class DateRange extends Factory
     public function getRange()
     {
         if (empty($this->_start) || empty($this->_end)) {
-            throw new RuntimeException("必须设置开始时间和结束时间", 1010008003);
+            throw new BusinessException("必须设置开始时间和结束时间", 1010008003);
         }
         if ($this->_start->isAfter($this->_end)) {
-            throw new RuntimeException("开始时间必须大于结束时间", 1010008004);
+            throw new BusinessException("开始时间必须大于结束时间", 1010008004);
         }
         if (self::DATA_TYPE_DATETIME === $this->_dataType) {
             $this->_startFormat = $this->_dateFormat . " 00:00:00";

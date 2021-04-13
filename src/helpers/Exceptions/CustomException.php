@@ -8,17 +8,17 @@
 namespace Zf\Helper\Exceptions;
 
 /**
- * 业务异常
+ * 用户自定义异常
  *
- * Class BusinessException
+ * Class CustomException
  * @package Zf\Helper\Exceptions
  */
-class BusinessException extends CustomException
+class CustomException extends Exception
 {
     /**
      * 异常类型
      *
      * @var string
      */
-    public $type = 'business';
+    public $type = 'custom';
 }

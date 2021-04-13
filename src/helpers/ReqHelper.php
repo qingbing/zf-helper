@@ -27,7 +27,7 @@ class ReqHelper
             } else if (isset($_REQUEST['X-TRACE-ID'])) {
                 $traceId = $_REQUEST['X-TRACE-ID'];
             } else {
-                $traceId = Id::uniqid();
+                $traceId = Util::uniqid();
             }
             return $traceId;
         });

@@ -6,9 +6,12 @@
     - 添加 openssl密码管理封装类
 - 1.0.5
     - 将 Register 修改成 DataStore
-- 1.0.x
+- 1.0.6
     - 增加 DataStore 获取的时的存储功能
     - 修改 trace-id 的获取的存储方式
+    - 删除 ID::uniqid(), 附加到 Util::uniqid()
+    - 添加 CustomException 异常
+    - 添加 ip段验证
 
 
 # zf-helper
@@ -27,6 +30,7 @@
 ## 业务类
 1. [文件下载类 ： Download](doc/helpers/Business/Download.md)
 1. [时间段获取 ： DateRange](doc/helpers/Business/DateRange.md)
+1. [Ip 地址助手 ： IpHelper](doc/helpers/Business/IpHelper.md)
 
 
 ## 加密类
@@ -36,9 +40,10 @@
 ## 异常类定义
 1. [业务异常 ： BusinessException](doc/helpers/Exceptions/BusinessException.md)
 1. [coding类异常 ： ClassException](doc/helpers/Exceptions/ClassException.md)
-1. [coding类异常 ： Exception](doc/helpers/Exceptions/Exception.md)
-1. [coding类异常 ： ParameterException](doc/helpers/Exceptions/ParameterException.md)
-1. [coding类异常 ： PropertyException](doc/helpers/Exceptions/PropertyException.md)
+1. [用户自定义异常 ： CustomException](doc/helpers/Exceptions/CustomException.md)
+1. [异常基类 ： Exception](doc/helpers/Exceptions/Exception.md)
+1. [coding参数异常 ： ParameterException](doc/helpers/Exceptions/ParameterException.md)
+1. [coding属性异常 ： PropertyException](doc/helpers/Exceptions/PropertyException.md)
 1. [运行时异常 ： RuntimeException](doc/helpers/Exceptions/RuntimeException.md)
 
 ## 身份辅助类
@@ -75,7 +80,6 @@
 1. [数据进制转换 ： AsciiHelper](doc/helpers/AsciiHelper.md)
 1. [文件目录处理 ： FileHelper](doc/helpers/FileHelper.md)
 1. [常用格式化 ： Format](doc/helpers/Format.md)
-1. [获取一个唯一的ID ： Id](doc/helpers/Id.md)
 1. [Ob缓冲管理 ： ObBuffer](doc/helpers/ObBuffer.md)
 1. [类或Object处理 ： Obj](doc/helpers/Obj.md)
 1. [数据存储 ： DataStore](doc/helpers/DataStore.md)
