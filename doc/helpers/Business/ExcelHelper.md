@@ -20,7 +20,58 @@
 
 ```php
 
-$file = __FILE__;
-Download::file($file, 'xx.php');
+// 下载准备
+$excel = ExcelHelper::getInstance()
+    ->setTitle('test')
+    ->setActiveSheetIndex(0);
+// 数据装填并下载
+$excel->writeMergeData([
+    [
+        'key1' => 'name11',
+        'key2' => 'name21',
+        'key3' => [
+            'value'   => 'name31-41',
+            'colspan' => 2,
+        ]
+    ],
+    [
+        'key1' => [
+            'value'   => 'name12',
+            'rowspan' => 2,
+        ],
+        'key2' => [
+            'value'   => 'name22',
+            'colspan' => 2,
+            'rowspan' => 2,
+        ],
+        'key4' => 'name42',
+    ],
+    [
+        'key4' => 'name43',
+    ],
+    [
+        'key1' => 'name14',
+        'key2' => [
+            'value'   => 'name24',
+            'colspan' => 3,
+        ]
+    ]
+], true)
+    ->writeLine([
+        "key1" => "data1",
+        "key2" => "data2",
+        "key3" => "data3",
+        "key4" => "data4",
+    ])
+    ->writeData([
+        ["key1" => "data1", "key2" => "data2", "key3" => "data3", "key4" => "data4",],
+        ["key1" => "data1", "key3" => "data333", "key4" => "data4", "key2" => "data2",],
+    ])
+    ->writeLine([
+        "key1" => "data1",
+        "key2" => "data2",
+        "key3" => "data3",
+        "key4" => "data4",
+    ])->download();
 
 ```
