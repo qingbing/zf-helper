@@ -5,6 +5,7 @@
     - setActiveSheetIndex(int $activeSheetIndex) ： 设置操作工作表的索引
     - getTitle() ： 获取工作表名称
     - setTitle(?string $title = null) ： 设置工作表名称
+    - setActiveSheetTitle(?string $title = null) ： 设置当前操作表的名称
     - getRowNum() ： 获取当前行索引
     - getColNum() ： 获取当前的列表
     - nextCol(?int $num = 1) ： 列标后移
@@ -17,15 +18,19 @@
     - writeData(array $res = []) ： 批量书写数据
     - writeMergeData(array $records, bool $setHeader = false) ： 装填数据，支持单元格合并，同html-table一样，使用 colspan 和 rowspan 表示单元格合并的数量和方向
     - download() ： 文件excel下载
+    - save(string $filePath) ： 持久化 excel 到服务器文件上
+    - ::readFile(string $filePath, ?int $idx = 0) : 读取 excel 文件
 
+
+## 测试代码
 ```php
 
 // 下载准备
 $excel = ExcelHelper::getInstance()
-    ->setTitle('test')
+    ->setTitle('excel文件文件名')
     ->setActiveSheetIndex(0);
-// 数据装填并下载
-$excel->writeMergeData([
+// 获取
+$fields = $excel->writeMergeData([
     [
         'key1' => 'name11',
         'key2' => 'name21',
@@ -52,26 +57,21 @@ $excel->writeMergeData([
     [
         'key1' => 'name14',
         'key2' => [
-            'value'   => 'name24',
+            'value'   => '2.120',
             'colspan' => 3,
         ]
     ]
 ], true)
-    ->writeLine([
-        "key1" => "data1",
-        "key2" => "data2",
-        "key3" => "data3",
-        "key4" => "data4",
-    ])
-    ->writeData([
-        ["key1" => "data1", "key2" => "data2", "key3" => "data3", "key4" => "data4",],
-        ["key1" => "data1", "key3" => "data333", "key4" => "data4", "key2" => "data2",],
-    ])
-    ->writeLine([
-        "key1" => "data1",
-        "key2" => "data2",
-        "key3" => "data3",
-        "key4" => "data4",
-    ])->download();
+->setActiveSheetTitle("测试");
 
+// 下载客户端
+$excel->download();
+
+// 保存硬盘
+$filePath = \Yii::$app->getRuntimePath() . "/xx.xlsx";
+$excel->save($filePath);
+
+// 读取excel
+$data = ExcelHelper::readFile($filePath, null);
+var_dump($data);
 ```

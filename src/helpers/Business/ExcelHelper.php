@@ -11,9 +11,11 @@ namespace Zf\Helper\Business;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx as Reader;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx as Writer;
 use Zf\Helper\Abstracts\Factory;
 use Zf\Helper\Util;
 
@@ -97,6 +99,16 @@ class ExcelHelper extends Factory
     }
 
     /**
+     * 获取当前操作的sheet
+     *
+     * @return int
+     */
+    public function getActiveSheetIndex(): int
+    {
+        return $this->_activeSheetIndex;
+    }
+
+    /**
      * 获取工作表名称
      *
      * @return string
@@ -118,6 +130,20 @@ class ExcelHelper extends Factory
     public function setTitle(?string $title = null)
     {
         $this->_title = $title;
+        return $this;
+    }
+
+    /**
+     * 设置当前操作表的名称
+     *
+     * @param string|null $title
+     * @return $this
+     * @throws Exception
+     */
+    public function setActiveSheetTitle(?string $title = null)
+    {
+        $title = $title ?: "sheet" . $this->getActiveSheetIndex();
+        $this->getActiveSheet()->setTitle($title);
         return $this;
     }
 
@@ -432,5 +458,42 @@ class ExcelHelper extends Factory
         $writer = IOFactory::createWriter($this->getSpreadSheet(), 'Xlsx');
         $writer->save('php://output');
         exit;
+    }
+
+    /**
+     * 持久化 excel 到服务器文件上
+     *
+     * @param string $filePath
+     * @throws Exception
+     * @throws WriterException
+     */
+    public function save(string $filePath)
+    {
+        (new Writer($this->getSpreadSheet()))->save($filePath);
+    }
+
+    /**
+     * 读取 excel 文件
+     *
+     * @param string $filePath
+     * @param int|null $idx
+     * @return array
+     * @throws Exception
+     */
+    public static function readFile(string $filePath, ?int $idx = 0): array
+    {
+        $reader      = new Reader();
+        $spreadsheet = $reader->load($filePath);
+        if (null !== $idx) {
+            $spreadsheet->setActiveSheetIndex($idx);
+            return $spreadsheet->getActiveSheet()->toArray();
+        }
+        $count = $spreadsheet->getSheetCount();
+        $data  = [];
+        for ($i = 0; $i < $count; $i++) {
+            $spreadsheet->setActiveSheetIndex($i);
+            $data[] = $spreadsheet->getActiveSheet()->toArray();
+        }
+        return $data;
     }
 }
