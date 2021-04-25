@@ -8,6 +8,7 @@
 namespace Zf\Helper\Business;
 
 
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -242,6 +243,25 @@ class ExcelHelper extends Factory
     }
 
     /**
+     * 填写单元格
+     *
+     * @param string $cellSign
+     * @param mixed $value
+     * @return $this
+     * @throws Exception
+     */
+    public function setCellValue(string $cellSign, $value)
+    {
+        $activeSheet = $this->getActiveSheet();
+        if (preg_match('#^\d*\.\d*0$#', $value)) {
+            $activeSheet->setCellValueExplicit($cellSign, $value, DataType::TYPE_STRING2);
+        } else {
+            $activeSheet->setCellValue($cellSign, $value);
+        }
+        return $this;
+    }
+
+    /**
      * 书写一行数据
      *
      * @param array $data
@@ -250,15 +270,14 @@ class ExcelHelper extends Factory
      */
     public function writeLine(array $data)
     {
-        $activeSheet = $this->getActiveSheet();
         if (!empty($this->headers)) {
             foreach ($this->headers as $field => $label) {
-                $activeSheet->setCellValue($this->getCellSign(), isset($data[$field]) ? $data[$field] : '');
+                $this->setCellValue($this->getCellSign(), isset($data[$field]) ? $data[$field] : '');
                 $this->nextCol();
             }
         } else {
             foreach ($data as $val) {
-                $activeSheet->setCellValue($this->getCellSign(), $val);
+                $this->setCellValue($this->getCellSign(), $val);
                 $this->nextCol();
             }
         }
@@ -313,7 +332,7 @@ class ExcelHelper extends Factory
                     $this->nextCol();
                 }
                 $startCellSign = $this->getCellSign();
-                $activeSheet->setCellValue($startCellSign, $cellValue);
+                $this->setCellValue($startCellSign, $cellValue);
                 // 书写单元格
                 if ($colspan > 1 && $rowspan > 1) {
                     // 列、行合并

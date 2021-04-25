@@ -12,6 +12,11 @@
     - 删除 ID::uniqid(), 附加到 Util::uniqid()
     - 添加 CustomException 异常
     - 添加 ip段验证
+- 1.0.7
+    - 添加 ExcelHelper 用于 excel 的导出
+- 1.0.8
+    - 修改 ExcelHelper 下载时，字符数字小数后末尾为零的展示bug,eg: 5.00 的显示
+
 
 
 # zf-helper
