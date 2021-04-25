@@ -22,7 +22,8 @@
     "ext-json": "*",
     "ext-openssl": "*",
     "php": "^7.1.0",
-    "nesbot/carbon": "^2.46"
+    "nesbot/carbon": "^2.46",
+    "phpoffice/phpspreadsheet": "^1.17"
   },
   "autoload": {
     "files": [

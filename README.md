@@ -30,6 +30,7 @@
 ## 业务类
 1. [文件下载类 ： Download](doc/helpers/Business/Download.md)
 1. [时间段获取 ： DateRange](doc/helpers/Business/DateRange.md)
+1. [excel装填下载 ： ExcelHelper](doc/helpers/Business/ExcelHelper.md)
 1. [Ip 地址助手 ： IpHelper](doc/helpers/Business/IpHelper.md)
 
 
@@ -43,6 +44,7 @@
 1. [用户自定义异常 ： CustomException](doc/helpers/Exceptions/CustomException.md)
 1. [异常基类 ： Exception](doc/helpers/Exceptions/Exception.md)
 1. [coding参数异常 ： ParameterException](doc/helpers/Exceptions/ParameterException.md)
+1. [程序异常 ： ProgramException](doc/helpers/Exceptions/ProgramException.md)
 1. [coding属性异常 ： PropertyException](doc/helpers/Exceptions/PropertyException.md)
 1. [运行时异常 ： RuntimeException](doc/helpers/Exceptions/RuntimeException.md)
 
