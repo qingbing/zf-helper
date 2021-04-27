@@ -52,9 +52,35 @@ class ExcelHelper extends Factory
      */
     private $_colSigns = [];
     /**
+     * @var bool 是否所有的数字展示都转换文本展示
+     */
+    private $_numberToText = true;
+    /**
      * @var array 当前表头
      */
     protected $headers = [];
+
+    /**
+     * 设置是否所有数字展示都转换文本
+     *
+     * @param bool $value
+     * @return $this
+     */
+    public function setNumberToText(bool $value)
+    {
+        $this->_numberToText = $value;
+        return $this;
+    }
+
+    /**
+     * 获取是否所有数字展示都转换文本
+     *
+     * @return bool
+     */
+    public function getNumberToText()
+    {
+        return $this->_numberToText;
+    }
 
     /**
      * 获取操作工作表
@@ -279,7 +305,13 @@ class ExcelHelper extends Factory
     public function setCellValue(string $cellSign, $value)
     {
         $activeSheet = $this->getActiveSheet();
-        if (preg_match('#^\d*\.\d*0$#', $value)) {
+        if ($this->getNumberToText() && preg_match('#^-?\d+(\.\d+)?$#', $value)) {
+            $activeSheet->setCellValueExplicit($cellSign, $value, DataType::TYPE_STRING2);
+        } else if (preg_match('#^-?\d*\.\d*0$#', $value)) {
+            // \d+.\d*0 格式的浮点数，只能用文本方式展示
+            $activeSheet->setCellValueExplicit($cellSign, $value, DataType::TYPE_STRING2);
+        } else if (preg_match('#^\d{12,}$#', $value)) {
+            // 12位以上科学计数法展示，16位数字以上显示都是0，所以全部设置为文本
             $activeSheet->setCellValueExplicit($cellSign, $value, DataType::TYPE_STRING2);
         } else {
             $activeSheet->setCellValue($cellSign, $value);

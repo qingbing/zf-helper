@@ -18,6 +18,8 @@
     - 修改 ExcelHelper 下载时，字符数字小数后末尾为零的展示bug,eg: 5.00 的显示
 - 1.0.9
     - ExcelHelper 添加硬盘保存 save 和 读取 readFile 功能
+- 1.0.?
+    - ExcelHelper 修复身份证号和浮点数展示转文本的问题
 
 
 # zf-helper

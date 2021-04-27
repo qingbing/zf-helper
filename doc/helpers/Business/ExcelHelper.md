@@ -1,6 +1,8 @@
 # 助手类 ExcelHelper ： excel装填下载
 - 继承 \Zf\Helper\Abstracts\Factory
 - 对外提供方法
+    - setNumberToText(bool $value) : 设置是否所有数字展示都转换文本
+    - getNumberToText() ： 获取是否所有数字展示都转换文本
     - getActiveSheet() ： 获取当前操作工作表
     - setActiveSheetIndex(int $activeSheetIndex) ： 设置操作工作表的索引
     - getTitle() ： 获取工作表名称
@@ -28,9 +30,10 @@
 // 下载准备
 $excel = ExcelHelper::getInstance()
     ->setTitle('excel文件文件名')
+    ->setNumberToText(false)
     ->setActiveSheetIndex(0);
 // 获取
-$fields = $excel->writeMergeData([
+$excel->writeMergeData([
     [
         'key1' => 'name11',
         'key2' => 'name21',
@@ -62,7 +65,28 @@ $fields = $excel->writeMergeData([
         ]
     ]
 ], true)
-->setActiveSheetTitle("测试");
+    ->setActiveSheetTitle("测试")
+    ->writeData([
+        ['key1' => '1', 'key2' => '000111', 'key3' => '', 'key4' => '',],
+        ['key1' => '12', 'key2' => '0212', 'key3' => '', 'key4' => '',],
+        ['key1' => '123', 'key2' => '', 'key3' => '', 'key4' => '',],
+        ['key1' => '1234', 'key2' => '', 'key3' => '', 'key4' => '',],
+        ['key1' => '12345', 'key2' => '', 'key3' => '', 'key4' => '',],
+        ['key1' => '123456', 'key2' => '', 'key3' => '', 'key4' => '',],
+        ['key1' => '1234567', 'key2' => '', 'key3' => '', 'key4' => '',],
+        ['key1' => '12345678', 'key2' => '', 'key3' => '', 'key4' => '',],
+        ['key1' => '123456789', 'key2' => '', 'key3' => '', 'key4' => '',],
+        ['key1' => '1234567890', 'key2' => '', 'key3' => '', 'key4' => '',],
+        ['key1' => '12345678901', 'key2' => '', 'key3' => '', 'key4' => '',],
+        ['key1' => '123456789012', 'key2' => '', 'key3' => '', 'key4' => '',],
+        ['key1' => '1234567890123', 'key2' => '', 'key3' => '', 'key4' => '',],
+        ['key1' => '12345678901234', 'key2' => '', 'key3' => '', 'key4' => '',],
+        ['key1' => '123456789012345', 'key2' => '', 'key3' => '', 'key4' => '',],
+        ['key1' => '1234567890123456', 'key2' => '', 'key3' => '', 'key4' => '',],
+        ['key1' => '12345678901234567', 'key2' => '', 'key3' => '', 'key4' => '',],
+        ['key1' => '123456789012345678', 'key2' => '', 'key3' => '', 'key4' => '',],
+        ['key1' => '1234567890123456789', 'key2' => '', 'key3' => '', 'key4' => '',],
+    ]);
 
 // 下载客户端
 $excel->download();
