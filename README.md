@@ -20,6 +20,7 @@
     - ExcelHelper 添加硬盘保存 save 和 读取 readFile 功能
 - 1.0.?
     - ExcelHelper 修复身份证号和浮点数展示转文本的问题
+    - 增加 Math 数据函数助手
 
 
 # zf-helper
@@ -90,6 +91,7 @@
 1. [数据进制转换 ： AsciiHelper](doc/helpers/AsciiHelper.md)
 1. [文件目录处理 ： FileHelper](doc/helpers/FileHelper.md)
 1. [常用格式化 ： Format](doc/helpers/Format.md)
+1. [数学函数 ： Math](doc/helpers/Math.md)
 1. [Ob缓冲管理 ： ObBuffer](doc/helpers/ObBuffer.md)
 1. [类或Object处理 ： Obj](doc/helpers/Obj.md)
 1. [数据存储 ： DataStore](doc/helpers/DataStore.md)
