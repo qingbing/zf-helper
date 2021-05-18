@@ -39,6 +39,9 @@ if (!function_exists('is_json')) {
      */
     function is_json($var)
     {
+        if (is_array($var)) {
+            return true;
+        }
         json_decode($var);
         return 0 === json_last_error();
     }
@@ -96,6 +99,9 @@ if (!function_exists('explode_data')) {
      */
     function explode_data($string, string $delimiter = ',')
     {
+        if ('' === $delimiter || null === $delimiter) {
+            return (array)$string;
+        }
         if (is_array($string)) {
             return $string;
         }
