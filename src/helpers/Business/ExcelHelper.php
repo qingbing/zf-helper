@@ -248,7 +248,7 @@ class ExcelHelper extends Factory
         if (0 == $mod) {
             $colSign = $chars{$index};
         } else {
-            $colSign = "{$chars{$mod}}{$chars{$index}}";
+            $colSign = "{$chars{$mod - 1}}{$chars{$index}}";
         }
         return $colSign;
     }

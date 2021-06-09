@@ -23,3 +23,7 @@ defined('IS_ENABLE_YES') or define('IS_ENABLE_YES', 1);
 // 删除状态
 defined('IS_DELETED_NO') or define('IS_DELETED_NO', 0);
 defined('IS_DELETED_YES') or define('IS_DELETED_YES', 1);
+
+
+defined("PREV") or define("PREV", "prev"); // 前
+defined("NEXT") or define("NEXT", "next"); // 后
