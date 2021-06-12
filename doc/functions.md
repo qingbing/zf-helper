@@ -98,3 +98,23 @@ array(3) {
  */
 var_dump(explode_data("1 | 2 | 35 49", '|'));
 ```
+
+6. is_real_array : 判断是否是真实的数字数组，数组索引为0,1,2...
+
+```php
+var_dump(is_real_array(1));
+var_dump(is_real_array([1 => 1,2,4]));
+var_dump(is_real_array([2 => 1,2,4]));
+var_dump(is_real_array([
+    "name" => "qingbing",
+]));
+var_dump(is_real_array([1,2,4]));
+
+/*
+bool(false)
+bool(false)
+bool(false)
+bool(false)
+bool(true)
+ */
+```

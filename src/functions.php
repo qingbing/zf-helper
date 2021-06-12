@@ -63,6 +63,19 @@ if (!function_exists('is_datetime')) {
     }
 }
 
+if (!function_exists('is_real_array')) {
+    function is_real_array($var)
+    {
+        /**
+         * 判断是否是真实的数字数组，数组索引为0,1,2...
+         */
+        if (!is_array($var)) {
+            return false;
+        }
+        return array_keys($var) === array_keys(array_fill(0, count($var), ''));
+    }
+}
+
 if (!function_exists('trim_data')) {
     /**
      * 对数据递归使用 trim 函数

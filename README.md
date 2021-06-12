@@ -21,6 +21,7 @@
 - 1.0.?
     - ExcelHelper 修复身份证号和浮点数展示转文本的问题
     - 增加 Math 数据函数助手
+    - 增加 is_real_array 函数，判断是否为真实的数字索引数组
 
 
 # zf-helper
