@@ -44,6 +44,7 @@
 1. [时间段获取 ： DateRange](doc/helpers/Business/DateRange.md)
 1. [excel装填下载 ： ExcelHelper](doc/helpers/Business/ExcelHelper.md)
 1. [Ip 地址助手 ： IpHelper](doc/helpers/Business/IpHelper.md)
+1. [id、pid 树形结构构造 ： ParentTree](doc/helpers/Business/ParentTree.md)
 
 
 ## 加密类
