@@ -22,6 +22,8 @@
     - ExcelHelper 修复身份证号和浮点数展示转文本的问题
     - 增加 Math 数据函数助手
     - 增加 is_real_array 函数，判断是否为真实的数字索引数组
+    - 修改 \Zf\Helper\Timer::begin 方法，支持标记事件刷新和保持功能
+    - 增加 \Zf\Helper\Business\ParentTree 类，解决id、pid之类二维数组的树形结构构造
 
 
 # zf-helper

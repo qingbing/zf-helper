@@ -28,14 +28,15 @@ class Timer
      * 开启一个timer
      *
      * @param string $type
-     * @return mixed|string
+     * @param bool $refresh
+     * @return mixed
      */
-    public static function begin($type = 'app')
+    public static function begin($type = 'app', $refresh = false)
     {
-        if (isset(self::$_timeStore[$type])) {
-            return self::$_timeStore[$type];
+        if ($refresh || !isset(self::$_timeStore[$type])) {
+            self::$_timeStore[$type] = self::microtime();
         }
-        return self::$_timeStore[$type] = self::microtime();
+        return self::$_timeStore[$type];
     }
 
     /**
