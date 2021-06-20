@@ -77,4 +77,26 @@ class Util
         }
         return sprintf('%.2f', $size * pow(1024, $supportUnit[$sourceUnit] - $supportUnit[$targetUnit])) . " {$targetUnit}";
     }
+
+    /**
+     * 根据给定的键过滤数组
+     *
+     * @param array $arr
+     * @param array|null $keys
+     * @return array
+     */
+    public static function filterArrayByKeys(array $arr, ?array $keys = [])
+    {
+        if (empty($keys)) {
+            return [];
+        }
+        $R = [];
+        foreach ($keys as $key) {
+            if (!isset($arr[$key])) {
+                continue;
+            }
+            $R[$key] = $arr[$key];
+        }
+        return $R;
+    }
 }
