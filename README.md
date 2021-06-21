@@ -24,6 +24,7 @@
     - 增加 is_real_array 函数，判断是否为真实的数字索引数组
     - 修改 \Zf\Helper\Timer::begin 方法，支持标记事件刷新和保持功能
     - 增加 \Zf\Helper\Business\ParentTree 类，解决id、pid之类二维数组的树形结构构造
+    - 增加片段 TOptionFormat，前端选项的格式化
 
 
 # zf-helper
@@ -80,6 +81,7 @@
 
 ## Trait片段
 1. [为$this对象的属性赋值 ： TConfigure](doc/helpers/Traits/TConfigure.md)
+1. [格式化前端选项 ： TOptionFormat](doc/helpers/Traits/TOptionFormat.md)
 1. [属性判断和处理 ： TProperty](doc/helpers/Traits/TProperty.md)
 
 
