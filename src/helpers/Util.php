@@ -7,6 +7,8 @@
 
 namespace Zf\Helper;
 
+use Zf\Helper\Exceptions\ProgramException;
+
 /**
  * 功能集合
  *
@@ -15,6 +17,42 @@ namespace Zf\Helper;
  */
 class Util
 {
+    /**
+     * 生成随机字符
+     *
+     * @param int $len
+     * @param array $types
+     * @return string
+     * @throws ProgramException
+     */
+    public static function randomString($len = 32, array $types = ['number', 'upperChar'])
+    {
+        $libs = [
+            'number'    => '0123456789',
+            'lowerChar' => 'abcdedghijklmnopqrstuvwxyz',
+            'upperChar' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+            'special'   => '-=$',
+        ];
+        if (0 === count($types)) {
+            throw new ProgramException("生成随机字符串指定包含字符类型");
+        }
+        $chars = '';
+        foreach ($libs as $type => $char) {
+            if (in_array($type, $types)) {
+                $chars .= $char;
+            }
+        }
+        $charLen = strlen($chars);
+        if (0 === $charLen) {
+            throw new ProgramException("生成随机字符串类型自定无效");
+        }
+        $rString = '';
+        for ($i = 0; $i < $len; $i++) {
+            $rString .= $chars{rand(0, $charLen - 1)};
+        }
+        return $rString;
+    }
+
     /**
      * 获取当前一个唯一的id，字符截取方式
      *      当前时间 ： 16进制数据获取最后8个字符串

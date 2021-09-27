@@ -118,3 +118,16 @@ bool(false)
 bool(true)
  */
 ```
+
+7. define_var : 获取常量值
+```php
+var_dump(define_var("YII_DEBUG"));
+var_dump(define_var("NONE_DEBUG"));
+var_dump(define_var("NONE_DEBUG", 'none'));
+
+/*
+bool(true)
+NULL
+string(4) "none"
+ */
+```

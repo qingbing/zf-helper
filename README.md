@@ -57,6 +57,8 @@
 1. [coding类异常 ： ClassException](doc/helpers/Exceptions/ClassException.md)
 1. [用户自定义异常 ： CustomException](doc/helpers/Exceptions/CustomException.md)
 1. [异常基类 ： Exception](doc/helpers/Exceptions/Exception.md)
+1. [访问禁用异常 ： ForbiddenHttpException](doc/helpers/Exceptions/ForbiddenHttpException.md)
+1. [http 异常 ： HttpException](doc/helpers/Exceptions/HttpException.md)
 1. [coding参数异常 ： ParameterException](doc/helpers/Exceptions/ParameterException.md)
 1. [程序异常 ： ProgramException](doc/helpers/Exceptions/ProgramException.md)
 1. [coding属性异常 ： PropertyException](doc/helpers/Exceptions/PropertyException.md)

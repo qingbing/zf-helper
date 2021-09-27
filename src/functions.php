@@ -5,6 +5,20 @@
  * @copyright   Chengdu Qb Technology Co., Ltd.
  */
 
+if (!function_exists('define_var')) {
+    /**
+     * 获取常量值
+     *
+     * @param string $constantName
+     * @param null $default
+     * @return mixed|null
+     */
+    function define_var(string $constantName, $default = null)
+    {
+        return defined($constantName) ? constant($constantName) : $default;
+    }
+}
+
 if (!function_exists('replace')) {
     /**
      * 信息模版替换
@@ -108,18 +122,16 @@ if (!function_exists('explode_data')) {
      *
      * @param $string
      * @param string $delimiter
+     * @param bool $unique
      * @return array
      */
-    function explode_data($string, string $delimiter = ',')
+    function explode_data($string, string $delimiter = ',', bool $unique = true)
     {
-        if ('' === $delimiter || null === $delimiter) {
-            return (array)$string;
-        }
         if (is_array($string)) {
-            return $string;
+            return $unique ? array_unique($string) : $string;
         }
-        if (!is_string($string)) {
-            return [$string];
+        if ('' === $delimiter || null === $delimiter || !is_string($string)) {
+            return (array)$string;
         }
         $string = trim($string, " \t\n\r\0\x0B" . $delimiter);
         $R      = [];
@@ -129,6 +141,6 @@ if (!function_exists('explode_data')) {
             }
             array_push($R, $value);
         }
-        return $R;
+        return $unique ? array_unique($R) : $R;
     }
 }

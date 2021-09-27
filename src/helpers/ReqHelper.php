@@ -15,13 +15,24 @@ namespace Zf\Helper;
  */
 class ReqHelper
 {
+    const TRACE_ID_KEY = __CLASS__ . ':traceId';
+
+    /**
+     * 设置请求的 Trace Id
+     * @param string $traceId
+     */
+    public static function setTraceId($traceId)
+    {
+        DataStore::set(self::TRACE_ID_KEY, $traceId);
+    }
+
     /**
      * 获取当前的请求的 TRACE-ID
      * @return string
      */
     public static function getTraceId(): string
     {
-        return DataStore::get(__CLASS__ . ":trackid", function () {
+        return DataStore::get(self::TRACE_ID_KEY, function () {
             if (isset($_SERVER['HTTP_X_TRACE_ID'])) {
                 $traceId = $_SERVER['HTTP_X_TRACE_ID'];
             } else if (isset($_REQUEST['X-TRACE-ID'])) {

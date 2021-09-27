@@ -24,6 +24,9 @@ defined('IS_ENABLE_YES') or define('IS_ENABLE_YES', 1);
 defined('IS_DELETED_NO') or define('IS_DELETED_NO', 0);
 defined('IS_DELETED_YES') or define('IS_DELETED_YES', 1);
 
-
+// 前后标识
 defined("PREV") or define("PREV", "prev"); // 前
 defined("NEXT") or define("NEXT", "next"); // 后
+
+// 时间空表示
+defined("EMPTY_TIME_MIN") or define("EMPTY_TIME_MIN", "1001-01-01"); // 小于该时间将被认为是null

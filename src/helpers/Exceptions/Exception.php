@@ -23,7 +23,7 @@ class Exception extends \Exception
      *
      * @var string
      */
-    public $type = 'base';
+    public $type = 'Exception';
 
     /**
      * 魔术方法：重置异常构造函数，使得code优先
@@ -35,5 +35,15 @@ class Exception extends \Exception
     public function __construct(string $message = "", int $code = -1, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
+    }
+
+    /**
+     * 获取异常名称
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->type;
     }
 }

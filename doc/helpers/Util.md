@@ -6,6 +6,9 @@
 ## test 代码
 
 ```php
+var_dump(Util::randomString());
+var_dump(Util::randomString(64, ['number', 'lowerChar', 'upperChar', 'special']));
+
 $id = Util::uniqid();
 var_dump($id);
 
@@ -26,6 +29,8 @@ var_dump($filterArray);
 ## test 结果
 
 ```php
+string(32) "LPCFTSCG8UPWVJM4J9Y57XXWCDEW7R4L"
+string(64) "NVtmMW5RBmM=ptZ4cX3Sn0IuaK$X7ObdWE$JzqJUka7KDksrZgVdVr93z$xU2U-K"
 string(32) "605acec5c0a80109fff605acec51c730"
 string(7) "1.00 KB"
 string(7) "1.05 GB"
