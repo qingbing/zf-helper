@@ -35,8 +35,8 @@ class IdentityParser extends Factory
     const INVALID_TYPE_BIRTHDAY = 3; // 出生日期无效
     const INVALID_TYPE_VERIFY   = 4; // 身份证校验码无效
 
-    const GENDER_MALE   = 1;
     const GENDER_FEMALE = 0;
+    const GENDER_MALE   = 1;
 
     /**
      * 身份证异常信息
@@ -70,11 +70,11 @@ class IdentityParser extends Factory
     /**
      * @var array 加权因子
      */
-    protected $factors = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
+    public static $factors = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
     /**
      * @var array 校验码
      */
-    protected $verifyCodes = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
+    public static $verifyCodes = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
     /**
      * @var array 区域列表
      */
@@ -90,6 +90,22 @@ class IdentityParser extends Factory
     protected function init()
     {
         $this->regions = json_decode(FileHelper::getContent(__DIR__ . '/data/region.json'), true);
+    }
+
+    /**
+     * 根据身份证前17位生成校验码
+     *
+     * @param string $idNo
+     * @return string
+     */
+    public static function getVerifyCode(string $idNo): string
+    {
+        $total = 0;
+        for ($i = 0; $i < 17; $i++) {
+            $total += $idNo{$i} * self::$factors[$i];
+        }
+        $mod = $total % 11;
+        return self::$verifyCodes[$mod];
     }
 
     /*
@@ -148,14 +164,8 @@ class IdentityParser extends Factory
 
         // 验证校验码是否有效
         if (18 === $len) {
-            $baseCode   = substr($this->_idCardNo, 0, 17);
             $verifyCode = substr($this->_idCardNo, 17, 1);
-            $total      = 0;
-            for ($i = 0; $i < 17; $i++) {
-                $total += $baseCode{$i} * $this->factors[$i];
-            }
-            $mod = $total % 11;
-            if ($this->verifyCodes[$mod] != $verifyCode) {
+            if (self::getVerifyCode($this->_idCardNo) != $verifyCode) {
                 $this->_invalidType = self::INVALID_TYPE_VERIFY;
                 return false;
             }
@@ -207,11 +217,7 @@ class IdentityParser extends Factory
                 // 不全出生年
                 $fullIdCard = substr_replace($this->_idCardNo, '19', 6, 0);
                 // 计算校验码
-                $total = 0;
-                for ($i = 0; $i < 17; $i++) {
-                    $total += $fullIdCard{$i} * $this->factors[$i];
-                }
-                $fullIdCard .= $this->verifyCodes[$total % 11];
+                $fullIdCard .= self::getVerifyCode($fullIdCard);
             } else {
                 $fullIdCard = $this->_idCardNo;
             }
