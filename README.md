@@ -18,13 +18,14 @@
     - 修改 ExcelHelper 下载时，字符数字小数后末尾为零的展示bug,eg: 5.00 的显示
 - 1.0.9
     - ExcelHelper 添加硬盘保存 save 和 读取 readFile 功能
-- 1.0.?
+- 1.0.10
     - ExcelHelper 修复身份证号和浮点数展示转文本的问题
     - 增加 Math 数据函数助手
     - 增加 is_real_array 函数，判断是否为真实的数字索引数组
     - 修改 \Zf\Helper\Timer::begin 方法，支持标记事件刷新和保持功能
     - 增加 \Zf\Helper\Business\ParentTree 类，解决id、pid之类二维数组的树形结构构造
     - 增加片段 TOptionFormat，前端选项的格式化
+    - 增加 \Zf\Helper\NumericTransform 进制数转换工具
 
 
 # zf-helper
@@ -100,6 +101,7 @@
 1. [文件目录处理 ： FileHelper](doc/helpers/FileHelper.md)
 1. [常用格式化 ： Format](doc/helpers/Format.md)
 1. [数学函数 ： Math](doc/helpers/Math.md)
+1. [进制转化 ： NumericTransform](doc/helpers/NumericTransform.md)
 1. [Ob缓冲管理 ： ObBuffer](doc/helpers/ObBuffer.md)
 1. [类或Object处理 ： Obj](doc/helpers/Obj.md)
 1. [数据存储 ： DataStore](doc/helpers/DataStore.md)
