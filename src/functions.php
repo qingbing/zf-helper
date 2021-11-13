@@ -5,42 +5,20 @@
  * @copyright   Chengdu Qb Technology Co., Ltd.
  */
 
-if (!function_exists('define_var')) {
+if (!function_exists('is_url')) {
     /**
-     * 获取常量值
+     * 判断一个变量是否是真是的URL
      *
-     * @param string $constantName
-     * @param null $default
-     * @return mixed|null
+     * @param string|null $var
+     * @return bool
      */
-    function define_var(string $constantName, $default = null)
+    function is_url(?string $var): bool
     {
-        return defined($constantName) ? constant($constantName) : $default;
-    }
-}
-
-if (!function_exists('replace')) {
-    /**
-     * 信息模版替换
-     *
-     * @param string $message
-     * @param array $context
-     * @param bool $withQuote
-     * @return string
-     */
-    function replace(string $message, array $context = [], bool $withQuote = true)
-    {
-        $replace = [];
-        if (!$withQuote) {
-            foreach ($context as $key => $val) {
-                if (!is_array($val) && (!is_object($val) || method_exists($val, '__toString'))) {
-                    $replace['{' . $key . '}'] = $val;
-                }
-            }
-        } else {
-            $replace = $context;
+        if (null == $var) {
+            return false;
         }
-        return strtr($message, $replace);
+        $pattern = '/^(?:(?:http|ftp|file)s?):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(?::\d{1,5})?(?:$|[?\/#])/iu';
+        return preg_match($pattern, $var) > 0;
     }
 }
 
@@ -87,6 +65,45 @@ if (!function_exists('is_real_array')) {
             return false;
         }
         return array_keys($var) === array_keys(array_fill(0, count($var), ''));
+    }
+}
+
+if (!function_exists('define_var')) {
+    /**
+     * 获取常量值
+     *
+     * @param string $constantName
+     * @param null $default
+     * @return mixed|null
+     */
+    function define_var(string $constantName, $default = null)
+    {
+        return defined($constantName) ? constant($constantName) : $default;
+    }
+}
+
+if (!function_exists('replace')) {
+    /**
+     * 信息模版替换
+     *
+     * @param string $message
+     * @param array $context
+     * @param bool $withQuote
+     * @return string
+     */
+    function replace(string $message, array $context = [], bool $withQuote = true)
+    {
+        $replace = [];
+        if (!$withQuote) {
+            foreach ($context as $key => $val) {
+                if (!is_array($val) && (!is_object($val) || method_exists($val, '__toString'))) {
+                    $replace['{' . $key . '}'] = $val;
+                }
+            }
+        } else {
+            $replace = $context;
+        }
+        return strtr($message, $replace);
     }
 }
 

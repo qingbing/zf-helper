@@ -131,3 +131,19 @@ NULL
 string(4) "none"
  */
 ```
+
+8. is_url : 是否真实有效url地址
+```php
+var_dump(is_url('http://phpcorner.net'));
+var_dump(is_url('http://www.phpcorner.net'));
+var_dump(is_url('http//www.phpcorner.net'));
+var_dump(is_url('http:/www.phpcorner.net'));
+
+/*
+bool(true)
+bool(true)
+bool(false)
+bool(false)
+
+ */
+```
