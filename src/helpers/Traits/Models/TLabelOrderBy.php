@@ -8,6 +8,8 @@
 namespace Zf\Helper\Traits\Models;
 
 
+use Zf\Helper\Exceptions\ProgramException;
+
 /**
  * 片段 : 排序标签
  *
@@ -27,5 +29,24 @@ trait TLabelOrderBy
             ORDER_ASC  => '升序',
             ORDER_DESC => '降序',
         ];
+    }
+
+    /**
+     * 检验有效的排序代码
+     *
+     * @param string $code
+     * @return array
+     * @throws ProgramException
+     */
+    public static function getOrderByEntity($code)
+    {
+        $orderCodes = self::orderByLabels();
+        if (null == $code) {
+            return $orderCodes;
+        }
+        if (!isset($orderCodes[$code])) {
+            throw new ProgramException("不存在的排序代码「{$code}」");
+        }
+        return $code;
     }
 }
