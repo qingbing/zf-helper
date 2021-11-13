@@ -8,7 +8,8 @@
 namespace Zf\Helper\Traits\Models;
 
 /**
- * 删除状态标签 片段
+ * 片段 : 删除状态标签
+ *
  * Class TDeleteLabel
  * @package Zf\Helper\Traits\Models
  */

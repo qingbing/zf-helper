@@ -8,7 +8,7 @@
 namespace Zf\Helper\Traits\Models;
 
 /**
- * 禁用状态标签 片段
+ * 片段 : 禁用状态标签
  *
  * Class TForbiddenLabels
  * @package Zf\Helper\Traits\Models

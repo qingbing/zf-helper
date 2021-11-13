@@ -7,24 +7,25 @@
 
 namespace Zf\Helper\Traits\Models;
 
+
 /**
- * 片段 : 启用状态标签
+ * 片段 : 排序标签
  *
- * Trait TEnableLabel
+ * Trait TLabelOrderBy
  * @package Zf\Helper\Traits\Models
  */
-trait TLabelEnable
+trait TLabelOrderBy
 {
     /**
-     * 启用状态标签
+     * 排序标签
      *
      * @return array
      */
-    public static function enableLabels()
+    public static function orderByLabels()
     {
         return [
-            IS_ENABLE_NO  => '禁用',
-            IS_ENABLE_YES => '启用',
+            ORDER_ASC  => '升序',
+            ORDER_DESC => '降序',
         ];
     }
 }

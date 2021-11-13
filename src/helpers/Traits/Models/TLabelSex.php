@@ -8,7 +8,7 @@
 namespace Zf\Helper\Traits\Models;
 
 /**
- * 性别标签 片段
+  片段 : 性别标签
  *
  * Class TSexLabel
  * @package Zf\Helper\Traits\Models

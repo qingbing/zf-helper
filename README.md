@@ -26,6 +26,9 @@
     - 增加 \Zf\Helper\Business\ParentTree 类，解决id、pid之类二维数组的树形结构构造
     - 增加片段 TOptionFormat，前端选项的格式化
     - 增加 \Zf\Helper\NumericTransform 进制数转换工具
+- 1.0.?
+    - 增加"对比关系"片段 \Zf\Helper\Traits\Models\TLabelCompareRelation
+    - 增加"排序"片段 \Zf\Helper\Traits\Models\TLabelOrderBy
 
 
 # zf-helper
@@ -89,9 +92,11 @@
 
 
 ### 模型辅助类
+1. ["对比关系"标签 ： TLabelCompareRelation](doc/helpers/Traits/Models/TLabelCompareRelation.md)
 1. ["删除状态"标签 ： TLabelDeleted](doc/helpers/Traits/Models/TLabelDeleted.md)
 1. ["启用状态"标签 ： TLabelEnable](doc/helpers/Traits/Models/TLabelEnable.md)
 1. ["禁用状态"标签 ： TLabelForbidden](doc/helpers/Traits/Models/TLabelForbidden.md)
+1. ["排序"标签 ： TLabelOrderBy](doc/helpers/Traits/Models/TLabelOrderBy.md)
 1. ["性别"标签 ： TLabelSex](doc/helpers/Traits/Models/TLabelSex.md)
 1. ["是/否"标签 ： TLabelYesNo](doc/helpers/Traits/Models/TLabelYesNo.md)
 

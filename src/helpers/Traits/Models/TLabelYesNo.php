@@ -8,7 +8,8 @@
 namespace Zf\Helper\Traits\Models;
 
 /**
- * 是否标签 片段
+ * 片段 : 是否标签
+ *
  * Class TIsLabel
  * @package Zf\Helper\Traits\Models
  */
