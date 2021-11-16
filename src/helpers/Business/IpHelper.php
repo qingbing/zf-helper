@@ -70,4 +70,27 @@ class IpHelper
         // 具体的ip比较
         return bindec(decbin(ip2long($ip))) == bindec(decbin(ip2long($range)));
     }
+
+    /**
+     * ip 是否在一些列范围中
+     *
+     * @param mixed $ip
+     * @param mixed $ranges
+     * @return bool
+     */
+    public static function inRanges($ip, $ranges): bool
+    {
+        if (empty($range)) {
+            return true;
+        }
+        if (is_array($ranges)) {
+            foreach ($ranges as $val) {
+                if (self::inRange($ip, $val)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return self::inRange($ip, $ranges);
+    }
 }

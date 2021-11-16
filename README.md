@@ -30,6 +30,7 @@
     - 增加"对比关系"片段 \Zf\Helper\Traits\Models\TLabelCompareRelation
     - 增加"排序"片段 \Zf\Helper\Traits\Models\TLabelOrderBy
     - 在function中加入函数 is_url
+    - 增加 \Zf\Helper\Business\IpHelper::inRanges, 判断ip是否在多组ip范围内
 
 
 # zf-helper
