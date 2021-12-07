@@ -1,16 +1,6 @@
-
-
-# 助手类 ParentTree ： id、pid 树形结构构造
-- 继承 \Zf\Helper\Abstracts\Factory
-- 对外提供方法
-    - setTopTag($top_tag) : 设置数据顶级标识
-    - setId(string $id) : 设置数据ID标识
-    - setPid(string $pid) : 设置parentID数据标识
-    - setFilter(?callable $filter) : 设置数据过滤函数
-    - setData(array $data) : 设置原始数据
-    - addData(array $data) : 添加原始数据
-    - parse() : 解析树形结构
-    - getTreeData() : 获取树形结构数据
+# 助手类 DeepTree ： array-deep实现的 pid-id 树形结构构造
+- 继承 \Zf\Helper\Abstracts\TreeData
+- 提供方法参考[TreeData](../Abstracts/TreeData.md)
 
 
 ## 测试代码
@@ -22,11 +12,11 @@ $data = [
     ['id' => 4, 'pid' => 1, 'data' => 'data4'],
     ['id' => 5, 'pid' => 0, 'data' => 'data5'],
 ];
-$tree = ParentTree::getInstance()
+$tree = DeepTree::getInstance()
     ->setFilter(function ($val) {
         return true;
     })
-    ->setData($data)
+    ->setSourceData($data)
     ->setId("id")
     ->setPid("pid")
     ->setTopTag(0)

@@ -1,4 +1,5 @@
 # 助手类Util ： 功能集合
+- 生成随机字符,可作为随机密码使用 ： randomString(): string
 - 获取一个唯一的id ： uniqid(): string
 - 内存单位转换 ： switchMemoryCapacity($size, string $targetUnit = 'KB', string $sourceUnit = 'B'): ?string
 
@@ -7,7 +8,7 @@
 
 ```php
 var_dump(Util::randomString());
-var_dump(Util::randomString(64, ['number', 'lowerChar', 'upperChar', 'special']));
+var_dump(Util::randomString(64, 15));
 
 $id = Util::uniqid();
 var_dump($id);

@@ -13,7 +13,7 @@ git commit -m $commitMsg
 git push
 # tip
 if [[ $? -ne 0 ]]; then
-	echo "push fail\n"
+	echo "push fail"
 else
-	echo "push success\n"
+	echo "push success"
 fi

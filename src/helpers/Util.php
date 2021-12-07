@@ -18,27 +18,25 @@ use Zf\Helper\Exceptions\ProgramException;
 class Util
 {
     /**
-     * 生成随机字符
+     * 生成随机字符，可制作随机密码
      *
      * @param int $len
-     * @param array $types
+     * @param int $mask
      * @return string
      * @throws ProgramException
      */
-    public static function randomString($len = 32, array $types = ['number', 'upperChar'])
+    public static function randomString($len = 32, $mask = 5)
     {
-        $libs = [
-            'number'    => '0123456789',
-            'lowerChar' => 'abcdedghijklmnopqrstuvwxyz',
-            'upperChar' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-            'special'   => '-=$',
+        $libs  = [
+            1 => '0123456789',
+            2 => 'abcdedghijklmnopqrstuvwxyz',
+            4 => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+            8 => '-=$',
         ];
-        if (0 === count($types)) {
-            throw new ProgramException("生成随机字符串指定包含字符类型");
-        }
         $chars = '';
-        foreach ($libs as $type => $char) {
-            if (in_array($type, $types)) {
+        foreach ($libs as $i => $char) {
+            $_i = $mask & $i;
+            if ($i === $_i) {
                 $chars .= $char;
             }
         }
@@ -136,5 +134,27 @@ class Util
             $R[$key] = $arr[$key];
         }
         return $R;
+    }
+
+    /**
+     * 判断一个路径是否在给定的范围内
+     *
+     * @param string $path
+     * @param array $urlPaths
+     * @return bool
+     */
+    public static function inUrlPath(string $path, ?array $urlPaths = []): bool
+    {
+        if (empty($urlPaths)) {
+            return true;
+        }
+        foreach ($urlPaths as $urlPath) {
+            $urlPath = str_replace('/', '\/', trim($urlPath));
+            $urlPath = str_replace('*', '(.*)', trim($urlPath));
+            if (preg_match('#^' . $urlPath . '$#', $path, $ms)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

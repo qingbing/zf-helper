@@ -23,14 +23,17 @@
     - 增加 Math 数据函数助手
     - 增加 is_real_array 函数，判断是否为真实的数字索引数组
     - 修改 \Zf\Helper\Timer::begin 方法，支持标记事件刷新和保持功能
-    - 增加 \Zf\Helper\Business\ParentTree 类，解决id、pid之类二维数组的树形结构构造
+    - 增加 \Zf\Helper\Business\DeepTree 类，解决id、pid之类二维数组的树形结构构造
     - 增加片段 TOptionFormat，前端选项的格式化
     - 增加 \Zf\Helper\NumericTransform 进制数转换工具
-- 1.0.?
+- 1.0.11
     - 增加"对比关系"片段 \Zf\Helper\Traits\Models\TLabelCompareRelation
     - 增加"排序"片段 \Zf\Helper\Traits\Models\TLabelOrderBy
     - 在function中加入函数 is_url
     - 增加 \Zf\Helper\Business\IpHelper::inRanges, 判断ip是否在多组ip范围内
+    - 增加 \Zf\Helper\Abstracts\TreeData:数组转换为树形结构基类
+    - 增加 \Zf\Helper\Business\ObjectTree 类，解决id、pid之类二维数组的树形结构构造
+    - 将 \Zf\Helper\Util::randomString, 改成掩码模式
 
 
 # zf-helper
@@ -45,13 +48,16 @@
 1. [自定义组件基类 ： Component](doc/helpers/Abstracts/Component.md)
 1. [工厂模式基类 ： Factory](doc/helpers/Abstracts/Factory.md)
 1. [单例模式基类 ： Singleton](doc/helpers/Abstracts/Singleton.md)
+1. [数组转换为树形结构基类 ： TreeData](doc/helpers/Abstracts/TreeData.md)
 
 ## 业务类
-1. [文件下载类 ： Download](doc/helpers/Business/Download.md)
 1. [时间段获取 ： DateRange](doc/helpers/Business/DateRange.md)
+1. [array-deep实现的 pid-id 树形结构构造 ： DeepTree](doc/helpers/Business/DeepTree.md)
+1. [文件下载类 ： Download](doc/helpers/Business/Download.md)
 1. [excel装填下载 ： ExcelHelper](doc/helpers/Business/ExcelHelper.md)
 1. [Ip 地址助手 ： IpHelper](doc/helpers/Business/IpHelper.md)
-1. [id、pid 树形结构构造 ： ParentTree](doc/helpers/Business/ParentTree.md)
+1. [Object实现的 pid-id 树形结构构造 ： ObjectTree](doc/helpers/Business/ObjectTree.md)
+1. [行政区划管理 ： Region](doc/helpers/Business/Region.md)
 
 
 ## 加密类
