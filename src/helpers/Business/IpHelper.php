@@ -76,6 +76,8 @@ class IpHelper
      *
      * @param mixed $ip
      * @param mixed $ranges
+     *      - [1.2.3.1/24, 172.1.100.1, 127.2.2.2]
+     *      - 1.2.3.1/24|172.1.100.1|127.2.2.2
      * @return bool
      */
     public static function inRanges($ip, $ranges): bool
@@ -83,14 +85,14 @@ class IpHelper
         if (empty($range)) {
             return true;
         }
-        if (is_array($ranges)) {
-            foreach ($ranges as $val) {
-                if (self::inRange($ip, $val)) {
-                    return true;
-                }
-            }
-            return false;
+        if (!is_array($ranges)) {
+            $ranges = explode_data($ranges, '|');
         }
-        return self::inRange($ip, $ranges);
+        foreach ($ranges as $val) {
+            if (self::inRange($ip, $val)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -1,5 +1,8 @@
 # 业务助手 IpHelper ： Ip 地址助手
 - 提供 ip 地址的多样化配置范围检查 ： inRange($ip, $range): bool
+- 提供 ip 地址在数组范围内的检查(依托于 inRange) ： inRanges($ip, $ranges): bool
+    - [1.2.3.1/24, 172.1.100.1, 127.2.2.2]
+    - 1.2.3.1/24|172.1.100.1|127.2.2.2
 
 ## test 代码
 

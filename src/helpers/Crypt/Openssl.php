@@ -19,10 +19,10 @@ use Zf\Helper\Plugins\Crypt\Base64;
  */
 class Openssl
 {
-    const PRICATE_KEY_BIT_512  = 512;
-    const PRICATE_KEY_BIT_1024 = 1024;
-    const PRICATE_KEY_BIT_2048 = 2048;
-    const PRICATE_KEY_BIT_4096 = 4096;
+    const PRIVATE_KEY_BIT_512  = 512;
+    const PRIVATE_KEY_BIT_1024 = 1024;
+    const PRIVATE_KEY_BIT_2048 = 2048;
+    const PRIVATE_KEY_BIT_4096 = 4096;
 
     /**
      * 生成openssl的公私钥
@@ -33,7 +33,7 @@ class Openssl
      * @return array
      * @throws Exception
      */
-    public static function generateSecrets($passphrase = '', $priKeyBits = self::PRICATE_KEY_BIT_1024, $priKeyType = OPENSSL_KEYTYPE_RSA, bool $longString = false): array
+    public static function generateSecrets($passphrase = '', $priKeyBits = self::PRIVATE_KEY_BIT_1024, $priKeyType = OPENSSL_KEYTYPE_RSA, bool $longString = false): array
     {
         $config = [
             "private_key_bits" => $priKeyBits,

@@ -34,6 +34,8 @@
     - 增加 \Zf\Helper\Abstracts\TreeData:数组转换为树形结构基类
     - 增加 \Zf\Helper\Business\ObjectTree 类，解决id、pid之类二维数组的树形结构构造
     - 将 \Zf\Helper\Util::randomString, 改成掩码模式
+- 1.0.12
+    - 增加 UnsupportedException 异常处理
 
 
 # zf-helper
@@ -75,6 +77,7 @@
 1. [程序异常 ： ProgramException](doc/helpers/Exceptions/ProgramException.md)
 1. [coding属性异常 ： PropertyException](doc/helpers/Exceptions/PropertyException.md)
 1. [运行时异常 ： RuntimeException](doc/helpers/Exceptions/RuntimeException.md)
+1. [不支持的业务异常 ： UnsupportedException](doc/helpers/Exceptions/UnsupportedException.md)
 
 ## 身份辅助类
 1. [身份证号解析 ： IdentityParser](doc/helpers/Identity/IdentityParser.md)
