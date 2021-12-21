@@ -50,6 +50,10 @@ class ExcelHelper extends Factory
         ['colNum' => 0, 'rowNum' => 1]
     ];
     /**
+     * @var array sheet索引和key-map
+     */
+    private $_sheetIndexKey = [];
+    /**
      * @var array 列的前缀字符表示结合
      */
     private $_colSigns = [];
@@ -203,6 +207,44 @@ class ExcelHelper extends Factory
         return $this->_spreadSheet;
     }
 
+    private $_defaultUsed = false;
+
+    /**
+     * 增加sheet
+     *
+     * @param string|null $title
+     * @param bool $noDefault 是否保留默认worksheet
+     * @param string|null $key
+     * @return $this
+     * @throws Exception
+     */
+    public function addSheet(?string $title = null, bool $noDefault = false, ?string $key = null)
+    {
+        if (0 === $this->_activeSheetIndex && !$this->_defaultUsed && !$noDefault) {
+            $this->_defaultUsed = true;
+            $newIndex           = $this->_activeSheetIndex;
+            $title              = empty($title) ? ("Sheet" . $newIndex) : $title;
+            // 设置sheet名称
+            $this->setSheetTitle($title);
+        } else {
+            $newIndex = $this->_activeSheetIndex + 1;
+            $title    = empty($title) ? ("Sheet" . $newIndex) : $title;
+            // 设置sheet名称
+            $this->getSpreadSheet()
+                ->addSheet(new Worksheet($this->getSpreadSheet(), $title), $newIndex);
+            // 设置索引sheet信息
+            $this->_sheetInfo[$newIndex] = ['colNum' => 0, 'rowNum' => 1];
+        }
+        // 设置激活sheet
+        $this->getSpreadSheet()->setActiveSheetIndex($newIndex);
+        // 设置激活sheet索引信息
+        $this->_activeSheetIndex = $newIndex;
+        if (null !== $key) {
+            $this->_sheetIndexKey[$key] = $newIndex;
+        }
+        return $this;
+    }
+
     /**
      * 获取当前操作工作表
      *
@@ -231,16 +273,18 @@ class ExcelHelper extends Factory
     /**
      * 设置操作工作表的索引
      *
-     * @param int $activeSheetIndex
+     * @param string|int $key
      * @return $this
      * @throws Exception
      */
-    public function setActiveSheetIndex(int $activeSheetIndex)
+    public function setActiveSheetIndex($key)
     {
-        if (null !== $this->_spreadSheet) {
-            $this->getSpreadSheet()->setActiveSheetIndex($activeSheetIndex);
+        $index = $this->_sheetIndexKey[$key] ?? $key;
+        if (!is_int($index)) {
+            throw new Exception("未创建的工作表索引{$key}");
         }
-        $this->_activeSheetIndex = $activeSheetIndex;
+        $this->getSpreadSheet()->setActiveSheetIndex($index);
+        $this->_activeSheetIndex = $index;
         return $this;
     }
 
