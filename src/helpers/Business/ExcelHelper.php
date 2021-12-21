@@ -13,6 +13,7 @@ use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx as Reader;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Exception as WriterException;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as Writer;
@@ -214,7 +215,6 @@ class ExcelHelper extends Factory
      * 获取操作工作表
      *
      * @return Spreadsheet
-     * @throws Exception
      */
     protected function getSpreadSheet()
     {
@@ -266,7 +266,6 @@ class ExcelHelper extends Factory
      * 获取当前操作工作表
      *
      * @return Worksheet
-     * @throws Exception
      */
     public function getActiveSheet()
     {
@@ -278,7 +277,6 @@ class ExcelHelper extends Factory
      *
      * @param string|null $title
      * @return $this
-     * @throws Exception
      */
     public function setSheetTitle(?string $title = null)
     {
@@ -311,7 +309,6 @@ class ExcelHelper extends Factory
      * @param string $cellSign
      * @param mixed $value
      * @return $this
-     * @throws Exception
      */
     public function setCellValue(string $cellSign, $value)
     {
@@ -335,7 +332,6 @@ class ExcelHelper extends Factory
      *
      * @param array $data
      * @return $this
-     * @throws Exception
      */
     public function writeLine(array $data)
     {
@@ -359,7 +355,6 @@ class ExcelHelper extends Factory
      *
      * @param array $res
      * @return $this
-     * @throws Exception
      */
     public function writeData(array $res = [])
     {
@@ -375,7 +370,6 @@ class ExcelHelper extends Factory
      * @param array|null $headers
      * @param bool $writeExcel
      * @return $this
-     * @throws Exception
      */
     public function setHeaders(?array $headers = null, bool $writeExcel = true)
     {
@@ -536,8 +530,7 @@ class ExcelHelper extends Factory
      * 获取单元格样式类
      *
      * @param string $cell
-     * @return \PhpOffice\PhpSpreadsheet\Style\Style
-     * @throws Exception
+     * @return Style
      */
     protected function getStyle(string $cell)
     {
@@ -550,7 +543,6 @@ class ExcelHelper extends Factory
      * @param string $cell
      * @param string|null $type
      * @param string|null $style
-     * @throws Exception
      */
     public function setAlignStyle(string $cell, ?string $type = self::ALIGN_TYPE_HORIZONTAL, ?string $style = null)
     {
