@@ -381,7 +381,29 @@ class ExcelHelper extends Factory
     {
         if ($writeExcel) {
             $this->headers = [];
-            $this->writeLine($headers);
+            foreach ($headers as $field => $value) {
+                if (is_array($value)) {
+                    $cellValue       = $value['value'] ?? '';
+                    $horizontalStyle = $value['horizontal'] ?? '';
+                    $verticalStyle   = $value['vertical'] ?? '';
+                } else {
+                    $cellValue       = $value;
+                    $horizontalStyle = '';
+                    $verticalStyle   = '';
+                }
+                $cellSign = $this->getCellSign();
+                $this->setCellValue($cellSign, $cellValue);
+                $this->nextCol();
+
+                // 设置样式
+                if ($horizontalStyle) {
+                    $this->setAlignStyle($cellSign, self::ALIGN_TYPE_HORIZONTAL, $horizontalStyle);
+                }
+                if ($verticalStyle) {
+                    $this->setAlignStyle($cellSign, self::ALIGN_TYPE_VERTICAL, $verticalStyle);
+                }
+            }
+            $this->nextRow();
         }
         $this->headers = $headers;
         return $this;
