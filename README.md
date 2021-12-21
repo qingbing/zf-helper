@@ -36,6 +36,7 @@
     - 将 \Zf\Helper\Util::randomString, 改成掩码模式
 - 1.0.12
     - 增加 UnsupportedException 异常处理
+    - \Zf\Helper\Business\ExcelHelper 增加多sheet和对齐格式支持
 
 
 # zf-helper
@@ -111,9 +112,10 @@
 1. ["性别"标签 ： TLabelSex](doc/helpers/Traits/Models/TLabelSex.md)
 1. ["是/否"标签 ： TLabelYesNo](doc/helpers/Traits/Models/TLabelYesNo.md)
 
+## 数据转换类
+1. [数据进制转换 ： AsciiHelper](doc/helpers/Transfor/AsciiHelper.md)
 
 ## 其它助手类
-1. [数据进制转换 ： AsciiHelper](doc/helpers/AsciiHelper.md)
 1. [文件目录处理 ： FileHelper](doc/helpers/FileHelper.md)
 1. [常用格式化 ： Format](doc/helpers/Format.md)
 1. [数学函数 ： Math](doc/helpers/Math.md)
