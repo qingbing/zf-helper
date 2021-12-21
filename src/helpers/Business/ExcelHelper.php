@@ -27,6 +27,23 @@ use Zf\Helper\Util;
  */
 class ExcelHelper extends Factory
 {
+    // 对齐方向
+    const ALIGN_TYPE_HORIZONTAL = 'horizontal';
+    const ALIGN_TYPE_VERTICAL   = 'vertical';
+    // 垂直对齐
+    const HORIZONTAL_GENERAL           = 'general';
+    const HORIZONTAL_LEFT              = 'left';
+    const HORIZONTAL_RIGHT             = 'right';
+    const HORIZONTAL_CENTER            = 'center';
+    const HORIZONTAL_CENTER_CONTINUOUS = 'centerContinuous';
+    const HORIZONTAL_JUSTIFY           = 'justify';
+    const HORIZONTAL_FILL              = 'fill';
+    // 水平对齐
+    const VERTICAL_BOTTOM  = 'bottom';
+    const VERTICAL_TOP     = 'top';
+    const VERTICAL_CENTER  = 'center';
+    const VERTICAL_JUSTIFY = 'justify';
+
     /**
      * @var bool 是否所有的数字展示都转换文本展示
      */
@@ -396,13 +413,17 @@ class ExcelHelper extends Factory
         foreach ($records as $idx => $record) {
             foreach ($record as $field => $value) {
                 if (is_array($value)) {
-                    $colspan   = $value['colspan'] ?? 1;
-                    $rowspan   = $value['rowspan'] ?? 1;
-                    $cellValue = $value['value'] ?? '';
+                    $colspan         = $value['colspan'] ?? 1;
+                    $rowspan         = $value['rowspan'] ?? 1;
+                    $cellValue       = $value['value'] ?? '';
+                    $horizontalStyle = $value['horizontal'] ?? '';
+                    $verticalStyle   = $value['vertical'] ?? '';
                 } else {
-                    $colspan   = 1;
-                    $rowspan   = 1;
-                    $cellValue = $value;
+                    $colspan         = 1;
+                    $rowspan         = 1;
+                    $cellValue       = $value;
+                    $horizontalStyle = '';
+                    $verticalStyle   = '';
                 }
                 if (is_string($field)) {
                     $fields[$field] = $cellValue;
@@ -415,6 +436,9 @@ class ExcelHelper extends Factory
                 $this->setCellValue($startCellSign, $cellValue);
                 // 书写单元格
                 if ($colspan > 1 && $rowspan > 1) {
+                    // 对齐样式
+                    $horizontalStyle = $horizontalStyle ?: 'center';
+                    $verticalStyle   = $verticalStyle ?: 'center';
                     // 列、行合并
                     $curColNum   = $this->getColNum();
                     $curRowNum   = $this->getRowNum();
@@ -426,6 +450,8 @@ class ExcelHelper extends Factory
                         $this->fillColPlaceholder($placeholders, $_idx++, $curColNum, $colspan, false);
                     }
                 } else if ($colspan > 1) {
+                    // 对齐样式
+                    $horizontalStyle = $horizontalStyle ?: 'center';
                     // 列合并
                     $curColNum   = $this->getColNum();
                     $curRowNum   = $this->getRowNum();
@@ -433,12 +459,21 @@ class ExcelHelper extends Factory
                     $activeSheet->mergeCells("{$startCellSign}:{$endCellSign}");
                     $this->fillColPlaceholder($placeholders, $idx, $curColNum + 1, $colspan - 1, true);
                 } else if ($rowspan > 1) {
+                    // 对齐样式
+                    $verticalStyle = $verticalStyle ?: 'center';
                     // 行合并
                     $curColNum   = $this->getColNum();
                     $curRowNum   = $this->getRowNum();
                     $endCellSign = $this->getCellSign($curColNum, $curRowNum + $rowspan - 1);
                     $activeSheet->mergeCells("{$startCellSign}:{$endCellSign}");
                     $this->fillRowPlaceholder($placeholders, $idx + 1, $curColNum, $rowspan);
+                }
+                // 设置样式
+                if ($horizontalStyle) {
+                    $this->setAlignStyle($startCellSign, self::ALIGN_TYPE_HORIZONTAL, $horizontalStyle);
+                }
+                if ($verticalStyle) {
+                    $this->setAlignStyle($startCellSign, self::ALIGN_TYPE_VERTICAL, $verticalStyle);
                 }
                 // 列坐标右移
                 $this->nextCol();
@@ -450,6 +485,36 @@ class ExcelHelper extends Factory
             $this->setHeaders($fields, false);
         }
         return $this;
+    }
+
+    /**
+     * 获取单元格样式类
+     *
+     * @param string $cell
+     * @return \PhpOffice\PhpSpreadsheet\Style\Style
+     * @throws Exception
+     */
+    protected function getStyle(string $cell)
+    {
+        return $this->getActiveSheet()->getStyle($cell);
+    }
+
+    /**
+     * 设置单元格对齐方式
+     *
+     * @param string $cell
+     * @param string|null $type
+     * @param string|null $style
+     * @throws Exception
+     */
+    public function setAlignStyle(string $cell, ?string $type = self::ALIGN_TYPE_HORIZONTAL, ?string $style = null)
+    {
+        $alignment = $this->getStyle($cell)->getAlignment();
+        if ($type === self::ALIGN_TYPE_HORIZONTAL) {
+            $alignment->setHorizontal($style);
+        } else {
+            $alignment->setVertical($style);
+        }
     }
 
     /**
