@@ -28,6 +28,10 @@ use Zf\Helper\Util;
 class ExcelHelper extends Factory
 {
     /**
+     * @var bool 是否所有的数字展示都转换文本展示
+     */
+    private $_numberToText = true;
+    /**
      * @var string 工作表保存名称
      */
     private $_title;
@@ -40,21 +44,15 @@ class ExcelHelper extends Factory
      */
     private $_activeSheetIndex = 0;
     /**
-     * @var int 当前操作列
+     * @var array 记录sheet的当前信息
      */
-    private $_colNum = 0;
-    /**
-     * @var int 当前操作行
-     */
-    private $_rowNum = 1;
+    private $_sheetInfo = [
+        ['colNum' => 0, 'rowNum' => 1]
+    ];
     /**
      * @var array 列的前缀字符表示结合
      */
     private $_colSigns = [];
-    /**
-     * @var bool 是否所有的数字展示都转换文本展示
-     */
-    private $_numberToText = true;
     /**
      * @var array 当前表头
      */
@@ -83,55 +81,15 @@ class ExcelHelper extends Factory
     }
 
     /**
-     * 获取操作工作表
+     * 设置工作表名称
      *
-     * @return Spreadsheet
-     * @throws Exception
-     */
-    protected function getSpreadSheet()
-    {
-        if (null === $this->_spreadSheet) {
-            $this->_spreadSheet = new Spreadsheet();
-            $this->_spreadSheet->setActiveSheetIndex($this->_activeSheetIndex);
-        }
-        return $this->_spreadSheet;
-    }
-
-    /**
-     * 获取当前操作工作表
-     *
-     * @return Worksheet
-     * @throws Exception
-     */
-    public function getActiveSheet()
-    {
-        return $this->getSpreadSheet()->getActiveSheet();
-    }
-
-    /**
-     * 设置操作工作表的索引
-     *
-     * @param int $activeSheetIndex
+     * @param string|null $title
      * @return $this
-     * @throws Exception
      */
-    public function setActiveSheetIndex(int $activeSheetIndex)
+    public function setTitle(?string $title = null)
     {
-        if (null !== $this->_spreadSheet) {
-            $this->getSpreadSheet()->setActiveSheetIndex($activeSheetIndex);
-        }
-        $this->_activeSheetIndex = $activeSheetIndex;
+        $this->_title = $title;
         return $this;
-    }
-
-    /**
-     * 获取当前操作的sheet
-     *
-     * @return int
-     */
-    public function getActiveSheetIndex(): int
-    {
-        return $this->_activeSheetIndex;
     }
 
     /**
@@ -148,39 +106,13 @@ class ExcelHelper extends Factory
     }
 
     /**
-     * 设置工作表名称
-     *
-     * @param string|null $title
-     * @return $this
-     */
-    public function setTitle(?string $title = null)
-    {
-        $this->_title = $title;
-        return $this;
-    }
-
-    /**
-     * 设置当前操作表的名称
-     *
-     * @param string|null $title
-     * @return $this
-     * @throws Exception
-     */
-    public function setActiveSheetTitle(?string $title = null)
-    {
-        $title = $title ?: "sheet" . $this->getActiveSheetIndex();
-        $this->getActiveSheet()->setTitle($title);
-        return $this;
-    }
-
-    /**
      * 获取当前行索引
      *
      * @return int
      */
-    public function getRowNum()
+    protected function getRowNum()
     {
-        return $this->_rowNum;
+        return $this->_sheetInfo[$this->_activeSheetIndex]['rowNum'];
     }
 
     /**
@@ -190,7 +122,7 @@ class ExcelHelper extends Factory
      */
     protected function getColNum()
     {
-        return $this->_colNum;
+        return $this->_sheetInfo[$this->_activeSheetIndex]['colNum'];
     }
 
     /**
@@ -201,7 +133,7 @@ class ExcelHelper extends Factory
      */
     public function nextCol(?int $num = 1)
     {
-        $this->_colNum += $num;
+        $this->_sheetInfo[$this->_activeSheetIndex]['colNum'] += $num;
         return $this;
     }
 
@@ -213,8 +145,8 @@ class ExcelHelper extends Factory
      */
     public function nextRow(?int $num = 1)
     {
-        $this->_rowNum += $num;
-        $this->_colNum = 0;
+        $this->_sheetInfo[$this->_activeSheetIndex]['rowNum'] += $num;
+        $this->_sheetInfo[$this->_activeSheetIndex]['colNum'] = 0;
         return $this;
     }
 
@@ -226,31 +158,21 @@ class ExcelHelper extends Factory
      */
     public function getColSign(?int $colNum = null)
     {
-        null === $colNum && ($colNum = $this->_colNum);
+        $colNum = $colNum ?: $this->_sheetInfo[$this->_activeSheetIndex]['colNum'];
         if (!isset($this->_colSigns[$colNum])) {
-            $this->_colSigns[$colNum] = $this->computeColSign($colNum);
+            // 计算列的字母表示
+            $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            $len   = strlen($chars);
+            $index = (int)fmod($colNum, $len);
+            $mod   = (int)floor($colNum / $len);
+            if (0 == $mod) {
+                $colSign = $chars{$index};
+            } else {
+                $colSign = "{$chars{$mod - 1}}{$chars{$index}}";
+            }
+            $this->_colSigns[$colNum] = $colSign;
         }
         return $this->_colSigns[$colNum];
-    }
-
-    /**
-     * 计算列标记
-     *
-     * @param $colNum
-     * @return mixed
-     */
-    protected function computeColSign($colNum)
-    {
-        $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        $len   = strlen($chars);
-        $index = (int)fmod($colNum, $len);
-        $mod   = (int)floor($colNum / $len);
-        if (0 == $mod) {
-            $colSign = $chars{$index};
-        } else {
-            $colSign = "{$chars{$mod - 1}}{$chars{$index}}";
-        }
-        return $colSign;
     }
 
     /**
@@ -262,36 +184,64 @@ class ExcelHelper extends Factory
      */
     public function getCellSign(?int $colNum = null, ?int $rowNum = null)
     {
-        $rowNum = (null === $rowNum) ? $this->getRowNum() : $rowNum;
+        $colNum = $colNum ?: $this->_sheetInfo[$this->_activeSheetIndex]['colNum'];
+        $rowNum = $rowNum ?: $this->_sheetInfo[$this->_activeSheetIndex]['rowNum'];
         return "{$this->getColSign($colNum)}{$rowNum}";
     }
 
     /**
-     * 设置表头字段
+     * 获取操作工作表
      *
-     * @param array|null $headers
-     * @param bool $writeExcel
+     * @return Spreadsheet
+     * @throws Exception
+     */
+    protected function getSpreadSheet()
+    {
+        if (null === $this->_spreadSheet) {
+            $this->_spreadSheet = new Spreadsheet();
+        }
+        return $this->_spreadSheet;
+    }
+
+    /**
+     * 获取当前操作工作表
+     *
+     * @return Worksheet
+     * @throws Exception
+     */
+    public function getActiveSheet()
+    {
+        return $this->getSpreadSheet()->getActiveSheet();
+    }
+
+    /**
+     * 设置当前操作表的名称
+     *
+     * @param string|null $title
      * @return $this
      * @throws Exception
      */
-    public function setHeaders(?array $headers = null, bool $writeExcel = true)
+    public function setSheetTitle(?string $title = null)
     {
-        if ($writeExcel) {
-            $this->headers = [];
-            $this->writeLine($headers);
-        }
-        $this->headers = $headers;
+        $title = $title ?: "Sheet" . $this->_activeSheetIndex;
+        $this->getActiveSheet()->setTitle($title);
         return $this;
     }
 
     /**
-     * 获取表头字段
+     * 设置操作工作表的索引
      *
-     * @return array
+     * @param int $activeSheetIndex
+     * @return $this
+     * @throws Exception
      */
-    public function getHeaders()
+    public function setActiveSheetIndex(int $activeSheetIndex)
     {
-        return $this->headers;
+        if (null !== $this->_spreadSheet) {
+            $this->getSpreadSheet()->setActiveSheetIndex($activeSheetIndex);
+        }
+        $this->_activeSheetIndex = $activeSheetIndex;
+        return $this;
     }
 
     /**
@@ -356,6 +306,34 @@ class ExcelHelper extends Factory
             $this->writeLine($re);
         }
         return $this;
+    }
+
+    /**
+     * 设置表头字段
+     *
+     * @param array|null $headers
+     * @param bool $writeExcel
+     * @return $this
+     * @throws Exception
+     */
+    public function setHeaders(?array $headers = null, bool $writeExcel = true)
+    {
+        if ($writeExcel) {
+            $this->headers = [];
+            $this->writeLine($headers);
+        }
+        $this->headers = $headers;
+        return $this;
+    }
+
+    /**
+     * 获取表头字段
+     *
+     * @return array
+     */
+    public function getHeaders()
+    {
+        return $this->headers;
     }
 
     /**
