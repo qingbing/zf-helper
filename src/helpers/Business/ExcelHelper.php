@@ -383,25 +383,37 @@ class ExcelHelper extends Factory
             $this->headers = [];
             foreach ($headers as $field => $value) {
                 if (is_array($value)) {
-                    $cellValue       = $value['value'] ?? '';
-                    $horizontalStyle = $value['horizontal'] ?? '';
-                    $verticalStyle   = $value['vertical'] ?? '';
+                    $cellValue          = $value['value'] ?? '';
+                    $horizontalStyle    = $value['horizontal'] ?? '';
+                    $verticalStyle      = $value['vertical'] ?? '';
+                    $rowHorizontalStyle = $value['rowHorizontal'] ?? '';
+                    $rowVerticalStyle   = $value['rowVertical'] ?? '';
                 } else {
-                    $cellValue       = $value;
-                    $horizontalStyle = '';
-                    $verticalStyle   = '';
+                    $cellValue          = $value;
+                    $horizontalStyle    = '';
+                    $verticalStyle      = '';
+                    $rowHorizontalStyle = '';
+                    $rowVerticalStyle   = '';
                 }
                 $cellSign = $this->getCellSign();
                 $this->setCellValue($cellSign, $cellValue);
-                $this->nextCol();
+                // 设置整列样式
+                if ($rowHorizontalStyle) {
+                    $this->setAlignStyle("{$this->getColSign()}:{$this->getColSign()}", self::ALIGN_TYPE_HORIZONTAL, $rowHorizontalStyle);
+                }
+                if ($rowVerticalStyle) {
+                    $this->setAlignStyle("{$this->getColSign()}:{$this->getColSign()}", self::ALIGN_TYPE_VERTICAL, $rowVerticalStyle);
+                }
 
-                // 设置样式
+                // 设置表头样式
                 if ($horizontalStyle) {
                     $this->setAlignStyle($cellSign, self::ALIGN_TYPE_HORIZONTAL, $horizontalStyle);
                 }
                 if ($verticalStyle) {
                     $this->setAlignStyle($cellSign, self::ALIGN_TYPE_VERTICAL, $verticalStyle);
                 }
+                // 下一列
+                $this->nextCol();
             }
             $this->nextRow();
         }
@@ -435,20 +447,31 @@ class ExcelHelper extends Factory
         foreach ($records as $idx => $record) {
             foreach ($record as $field => $value) {
                 if (is_array($value)) {
-                    $colspan         = $value['colspan'] ?? 1;
-                    $rowspan         = $value['rowspan'] ?? 1;
-                    $cellValue       = $value['value'] ?? '';
-                    $horizontalStyle = $value['horizontal'] ?? '';
-                    $verticalStyle   = $value['vertical'] ?? '';
+                    $colspan            = $value['colspan'] ?? 1;
+                    $rowspan            = $value['rowspan'] ?? 1;
+                    $cellValue          = $value['value'] ?? '';
+                    $horizontalStyle    = $value['horizontal'] ?? '';
+                    $verticalStyle      = $value['vertical'] ?? '';
+                    $rowHorizontalStyle = $value['rowHorizontal'] ?? '';
+                    $rowVerticalStyle   = $value['rowVertical'] ?? '';
                 } else {
-                    $colspan         = 1;
-                    $rowspan         = 1;
-                    $cellValue       = $value;
-                    $horizontalStyle = '';
-                    $verticalStyle   = '';
+                    $colspan            = 1;
+                    $rowspan            = 1;
+                    $cellValue          = $value;
+                    $horizontalStyle    = '';
+                    $verticalStyle      = '';
+                    $rowHorizontalStyle = '';
+                    $rowVerticalStyle   = '';
                 }
                 if (is_string($field)) {
                     $fields[$field] = $cellValue;
+                }
+                // 设置整列样式,这里整列样式必须在移动占位符之前，否则会被定位到最后的列中去
+                if ($rowHorizontalStyle) {
+                    $this->setAlignStyle("{$this->getColSign()}:{$this->getColSign()}", self::ALIGN_TYPE_HORIZONTAL, $rowHorizontalStyle);
+                }
+                if ($rowVerticalStyle) {
+                    $this->setAlignStyle("{$this->getColSign()}:{$this->getColSign()}", self::ALIGN_TYPE_VERTICAL, $rowVerticalStyle);
                 }
                 // 设置过占位符，列标需要按照占位符向后移动位数
                 while (isset($placeholders[$idx][$this->getColNum()])) {
@@ -490,7 +513,7 @@ class ExcelHelper extends Factory
                     $activeSheet->mergeCells("{$startCellSign}:{$endCellSign}");
                     $this->fillRowPlaceholder($placeholders, $idx + 1, $curColNum, $rowspan);
                 }
-                // 设置样式
+                // 设置表头样式
                 if ($horizontalStyle) {
                     $this->setAlignStyle($startCellSign, self::ALIGN_TYPE_HORIZONTAL, $horizontalStyle);
                 }
