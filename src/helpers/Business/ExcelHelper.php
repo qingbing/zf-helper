@@ -76,6 +76,10 @@ class ExcelHelper extends Factory
      */
     private $_colSigns = [];
     /**
+     * @var bool 添加sheet时默认激活sheet是否已使用
+     */
+    private $_defaultUsed = false;
+    /**
      * @var array 当前表头
      */
     protected $headers = [];
@@ -223,8 +227,6 @@ class ExcelHelper extends Factory
         }
         return $this->_spreadSheet;
     }
-
-    private $_defaultUsed = false;
 
     /**
      * 增加sheet
