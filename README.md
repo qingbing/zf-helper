@@ -37,6 +37,8 @@
 - 1.0.12
     - 增加 UnsupportedException 异常处理
     - \Zf\Helper\Business\ExcelHelper 增加多sheet和对齐格式支持
+- ??
+    - \Zf\Helper\Exceptions\NotFoundHttpException 增加不存在异常
 
 
 # zf-helper
@@ -74,6 +76,7 @@
 1. [异常基类 ： Exception](doc/helpers/Exceptions/Exception.md)
 1. [访问禁用异常 ： ForbiddenHttpException](doc/helpers/Exceptions/ForbiddenHttpException.md)
 1. [http 异常 ： HttpException](doc/helpers/Exceptions/HttpException.md)
+1. [不存在界面异常 ： NotFoundHttpException](doc/helpers/Exceptions/NotFoundHttpException.md)
 1. [coding参数异常 ： ParameterException](doc/helpers/Exceptions/ParameterException.md)
 1. [程序异常 ： ProgramException](doc/helpers/Exceptions/ProgramException.md)
 1. [coding属性异常 ： PropertyException](doc/helpers/Exceptions/PropertyException.md)
