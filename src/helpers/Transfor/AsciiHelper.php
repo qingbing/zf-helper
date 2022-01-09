@@ -5,18 +5,18 @@
  * @copyright   Chengdu Qb Technology Co., Ltd.
  */
 
-namespace Zf\Helper;
+namespace Zf\Helper\Transfor;
 
 /**
- * 数据进制转换
+ * 辅助类: Ascii码转换
  *
  * Class AsciiHelper
- * @package Zf\Helper
+ * @package Zf\Helper\Transfor
  */
 class AsciiHelper
 {
     /**
-     * 将字符串转换成十六进制
+     * 将字符串转换成二进制
      *
      * @param string $var
      * @return string

@@ -1,4 +1,9 @@
-# 助手类 AsciiHelper ： 数据进制转换
+# 助手类 AsciiHelper ： Ascii码转换
+- static str2Binary(string $var) : 将字符串转换成二进制
+- static str2Hex(string $var) : 将字符串转换成十六进制
+- static binary2Str(string $var) : 二进制转换成字符串
+- static hex2Str(string $var) : 十六进制转换成字符串
+
 
 ## test代码
 ```php

@@ -39,6 +39,7 @@
     - \Zf\Helper\Business\ExcelHelper 增加多sheet和对齐格式支持
 - ??
     - \Zf\Helper\Exceptions\NotFoundHttpException 增加不存在异常
+    - 增加Unicode编码转换: \Zf\Helper\Transfor\UnicodeHelper
 
 
 # zf-helper
@@ -116,13 +117,14 @@
 1. ["是/否"标签 ： TLabelYesNo](doc/helpers/Traits/Models/TLabelYesNo.md)
 
 ## 数据转换类
-1. [数据进制转换 ： AsciiHelper](doc/helpers/Transfor/AsciiHelper.md)
+1. [Ascii码转换 ： AsciiHelper](doc/helpers/Transfor/AsciiHelper.md)
+1. [数据进制转化 ： NumberHelper](doc/helpers/Transfor/NumberHelper.md)
+1. [Unicode编码转换 ： UnicodeHelper](doc/helpers/Transfor/UnicodeHelper.md)
 
 ## 其它助手类
 1. [文件目录处理 ： FileHelper](doc/helpers/FileHelper.md)
 1. [常用格式化 ： Format](doc/helpers/Format.md)
 1. [数学函数 ： Math](doc/helpers/Math.md)
-1. [进制转化 ： NumericTransform](doc/helpers/NumericTransform.md)
 1. [Ob缓冲管理 ： ObBuffer](doc/helpers/ObBuffer.md)
 1. [类或Object处理 ： Obj](doc/helpers/Obj.md)
 1. [数据存储 ： DataStore](doc/helpers/DataStore.md)
