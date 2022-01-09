@@ -40,6 +40,7 @@
 - ??
     - \Zf\Helper\Exceptions\NotFoundHttpException 增加不存在异常
     - 增加Unicode编码转换: \Zf\Helper\Transfor\UnicodeHelper
+    - 增加标点符号转换: \Zf\Helper\Transfor\SymbolHelper
 
 
 # zf-helper
@@ -119,6 +120,7 @@
 ## 数据转换类
 1. [Ascii码转换 ： AsciiHelper](doc/helpers/Transfor/AsciiHelper.md)
 1. [数据进制转化 ： NumberHelper](doc/helpers/Transfor/NumberHelper.md)
+1. [标点符号转换 ： SymbolHelper](doc/helpers/Transfor/SymbolHelper.md)
 1. [Unicode编码转换 ： UnicodeHelper](doc/helpers/Transfor/UnicodeHelper.md)
 
 ## 其它助手类
