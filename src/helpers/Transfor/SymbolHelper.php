@@ -9,6 +9,10 @@ namespace Zf\Helper\Transfor;
 
 /**
  * 辅助类: 标点符号转换
+ *      全角字符unicode编码从65281~65374 （十六进制 0xFF01 ~ 0xFF5E）
+ *      半角字符unicode编码从33~126 （十六进制 0x21~ 0x7E）
+ *      空格比较特殊,全角为 12288（0x3000）,半角为 32 （0x20）
+ *      因此: 除空格外,全角/半角按unicode编码排序在顺序上是对应的
  *
  * Class SymbolHelper
  * @package Zf\Helper\Transfor
