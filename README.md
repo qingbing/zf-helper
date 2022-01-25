@@ -41,6 +41,7 @@
     - \Zf\Helper\Exceptions\NotFoundHttpException 增加不存在异常
     - 增加Unicode编码转换: \Zf\Helper\Transfor\UnicodeHelper
     - 增加标点符号转换: \Zf\Helper\Transfor\SymbolHelper
+    - 增加任意进制数转化十进制数: \Zf\Helper\Transfor\NumberHelper::baseToDec
 
 
 # zf-helper

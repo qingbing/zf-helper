@@ -75,15 +75,15 @@ class NumberHelper
      */
     public static function decToBase(int $n, int $base, $length = 0)
     {
-        $chars = self::BASE_CHARS;
-        $len   = strlen($chars);
+        $chars = substr(self::BASE_CHARS, 0, $base);
+        $len   = strlen(self::BASE_CHARS);
         if ($base > $len) {
             throw new ProgramException("不能转换成大于{$len}以上的进制数");
         }
         $R = '';
         while (true) {
             $rest = intval(fmod($n, $base));
-            $n    = floor(fdiv($n, $base));
+            $n    = floor($n / $base);
             $R    = $chars{$rest} . $R;
             if ($n <= 0) {
                 break;
@@ -94,6 +94,42 @@ class NumberHelper
         } else {
             return $R;
         }
+    }
+
+    /**
+     * 任意进制数转化十进制数
+     *
+     * @param string $code
+     * @param int $base
+     * @return float|int
+     * @throws ProgramException
+     */
+    public static function baseToDec($code, int $base)
+    {
+        $chars = substr(self::BASE_CHARS, 0, $base);
+        $len   = strlen(self::BASE_CHARS);
+        if ($base > $len) {
+            throw new ProgramException("不能转换成大于{$len}以上的进制数");
+        }
+        $code       = ltrim($code, '0');
+        $ta         = str_split($code, 1);
+        $dec        = 0;
+        $baseNumber = 1;
+        while (true) {
+            if (0 === count($ta)) {
+                // 计算完毕
+                break;
+            }
+            $iChar = array_pop($ta); // 从尾部取字符串
+            $pos   = strpos($chars, $iChar);
+            if (false === $pos) {
+                // 字符串不在进制字符中
+                throw new ProgramException("进制数 {$code} 有误");
+            }
+            $dec        += $baseNumber * $pos;
+            $baseNumber *= $base;
+        }
+        return $dec;
     }
 
     /**

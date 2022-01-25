@@ -1,5 +1,6 @@
 # 辅助类 NumberHelper : 数据进制转化
 - static decToBase(int $n, int $base, $length = 0) : 十进制数转化任意进制数，不能大于 65
+- static baseToDec($code, int $base) : 任意进制数转化十进制数
 - static binaryToOctal(string $code) : 二进制转换成八进制数
 - static binaryToDec(string $code) : 二进制转换成十进制数
 - static binaryToHex(string $code) : 二进制转换成十六进制数
@@ -30,6 +31,24 @@ var_dump(NumberHelper::decToBase(64, 62, 6));
 var_dump(NumberHelper::decToBase(3844, 62, 6));
 var_dump(NumberHelper::decToBase(13457893844, 62, 6));
 var_dump(NumberHelper::decToBase(13444443844, 62, 6));
+
+$num = NumberHelper::decToBase62(64, 6);
+var_dump($num);
+$num = NumberHelper::base62ToDec($num);
+var_dump($num);
+
+$num = NumberHelper::decToBase62(62);
+var_dump($num);
+$num = NumberHelper::base62ToDec($num);
+var_dump($num);
+$num = NumberHelper::decToBase62(63);
+
+// 任意进制数转化十进制数
+var_dump('===== 任意进制数转化十进制数 =====');
+var_dump(NumberHelper::baseToDec('10', 62));
+var_dump(NumberHelper::baseToDec('10', 64));
+var_dump(NumberHelper::baseToDec('10', 63));
+var_dump(NumberHelper::baseToDec('1-', 63));
 
 // 二进制转换成十六进制数
 var_dump('===== 二进制转换成十六进制数 =====');
@@ -145,6 +164,11 @@ string(6) "000012"
 string(6) "000100"
 string(6) "eGLWXW"
 string(6) "eFRw0s"
+string(45) "===== 任意进制数转化十进制数 ====="
+int(62)
+int(64)
+int(63)
+{"code":-1,"message":"进制数 1- 有误","data":{}}
 string(45) "===== 二进制转换成十六进制数 ====="
 string(2) "28"
 string(2) "2b"
