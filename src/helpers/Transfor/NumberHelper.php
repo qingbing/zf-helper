@@ -75,12 +75,12 @@ class NumberHelper
      */
     public static function decToBase(int $n, int $base, $length = 0)
     {
-        $chars = substr(self::BASE_CHARS, 0, $base);
-        $len   = strlen(self::BASE_CHARS);
+        $len = strlen(self::BASE_CHARS);
         if ($base > $len) {
             throw new ProgramException("不能转换成大于{$len}以上的进制数");
         }
-        $R = '';
+        $R     = '';
+        $chars = substr(self::BASE_CHARS, 0, $base);
         while (true) {
             $rest = intval(fmod($n, $base));
             $n    = floor($n / $base);
@@ -106,15 +106,18 @@ class NumberHelper
      */
     public static function baseToDec($code, int $base)
     {
-        $chars = substr(self::BASE_CHARS, 0, $base);
-        $len   = strlen(self::BASE_CHARS);
+        $len = strlen(self::BASE_CHARS);
         if ($base > $len) {
             throw new ProgramException("不能转换成大于{$len}以上的进制数");
         }
-        $code       = ltrim($code, '0');
+        $code = ltrim($code, '0');
+        if (empty($code)) {
+            return 0;
+        }
         $ta         = str_split($code, 1);
         $dec        = 0;
         $baseNumber = 1;
+        $chars      = substr(self::BASE_CHARS, 0, $base);
         while (true) {
             if (0 === count($ta)) {
                 // 计算完毕
