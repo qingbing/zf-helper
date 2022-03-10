@@ -36,7 +36,7 @@ class DeepTree extends TreeData
                 continue;
             }
             unset($this->sourceData[$k]);
-            array_push($tree, array('deep' => $deep, 'attr' => $datum, 'data' => $this->_parse($datum[$this->id], $deep + 1)));
+            array_push($tree, array('deep' => $deep, 'attr' => $datum, $this->subDataName => $this->_parse($datum[$this->id], $deep + 1)));
         }
         return $tree;
     }

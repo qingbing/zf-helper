@@ -161,3 +161,20 @@ if (!function_exists('explode_data')) {
         return $unique ? array_unique($R) : $R;
     }
 }
+
+if (!function_exists('release_json')) {
+    /**
+     * 将数据(json)字符串或对象转换成数字，字符串，数组等数据
+     *
+     * @param mixed $var
+     * @return mixed
+     */
+    function release_json($var)
+    {
+        if (is_string($var)) {
+            return json_decode($var, true);
+        } else {
+            return json_decode(json_encode($var), true);
+        }
+    }
+}

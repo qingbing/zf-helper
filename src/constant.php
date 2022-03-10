@@ -42,3 +42,12 @@ defined("COMPARE_LE") or define("COMPARE_LE", "le"); // <= 不大于 less than o
 // 排序字段标识
 defined("ORDER_ASC") or define("ORDER_ASC", "ASC"); // 升序
 defined("ORDER_DESC") or define("ORDER_DESC", "DESC"); // 降序
+
+// 方向
+defined("DIRECTION_NONE") or define("DIRECTION_NONE", "none"); // 无
+defined("DIRECTION_UP") or define("DIRECTION_UP", "up"); // 上
+defined("DIRECTION_DOWN") or define("DIRECTION_DOWN", "down"); // 下
+defined("DIRECTION_LEFT") or define("DIRECTION_LEFT", "left"); // 左
+defined("DIRECTION_RIGHT") or define("DIRECTION_RIGHT", "right"); // 右
+defined("DIRECTION_BOTH") or define("DIRECTION_BOTH", "both"); // 两者兼有
+defined("DIRECTION_ALL") or define("DIRECTION_ALL", "all"); // 所有

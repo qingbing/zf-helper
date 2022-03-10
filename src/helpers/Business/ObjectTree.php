@@ -19,7 +19,6 @@ use Zf\Helper\Abstracts\TreeData;
 class ObjectTree extends TreeData
 {
     private $_needEncodeData = true; // 数据源是否需要重新json_decode
-    private $_subDataName    = 'subData'; // 子项目键名
 
     /**
      * 设置数据源是否需要重新object化
@@ -30,18 +29,6 @@ class ObjectTree extends TreeData
     public function setNeedEncodeData(bool $needEncodeData = false)
     {
         $this->_needEncodeData = $needEncodeData;
-        return $this;
-    }
-
-    /**
-     * 设置子项目键名
-     *
-     * @param string $subDataName
-     * @return $this
-     */
-    public function setSubDataName(string $subDataName)
-    {
-        $this->_subDataName = $subDataName;
         return $this;
     }
 
@@ -62,10 +49,10 @@ class ObjectTree extends TreeData
             if (!isset($sourceData[$source->{$this->pid}])) {
                 continue;
             }
-            if (!isset($sourceData[$source->{$this->pid}]->{$this->_subDataName})) {
-                $sourceData[$source->{$this->pid}]->{$this->_subDataName} = [];
+            if (!isset($sourceData[$source->{$this->pid}]->{$this->subDataName})) {
+                $sourceData[$source->{$this->pid}]->{$this->subDataName} = [];
             }
-            array_push($sourceData[$source->{$this->pid}]->{$this->_subDataName}, $source);
+            array_push($sourceData[$source->{$this->pid}]->{$this->subDataName}, $source);
         }
         foreach ($sourceData as $id => $source) {
             if ($source->{$this->pid} !== $this->topTag) {
@@ -73,5 +60,23 @@ class ObjectTree extends TreeData
             }
         }
         return $sourceData;
+    }
+
+    /**
+     * 转换成数组
+     *
+     * @param array $data
+     * @return array
+     */
+    protected function toArrayData(array $data): array
+    {
+        $data = array_values($data);
+        foreach ($data as &$datum) {
+            if (isset($datum[$this->subDataName])) {
+                $datum[$this->subDataName] = $this->toArrayData($datum[$this->subDataName]);
+            }
+        }
+        unset($datum);
+        return $data;
     }
 }

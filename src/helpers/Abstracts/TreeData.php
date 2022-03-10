@@ -16,10 +16,12 @@ namespace Zf\Helper\Abstracts;
  */
 abstract class TreeData extends Factory
 {
-    protected $topTag     = 0; // 顶级数据标记
-    protected $id         = 'id'; // 数据ID标识
-    protected $pid        = 'pid'; // parentID数据标识
-    protected $sourceData = []; // 原始数据
+    protected $topTag      = 0; // 顶级数据标记
+    protected $id          = 'id'; // 数据ID标识
+    protected $pid         = 'pid'; // parentID数据标识
+    protected $subDataName = 'children'; // 子项目键名
+    protected $returnArray = false; // 返回时转换成数组
+    protected $sourceData  = []; // 原始数据
     private   $_treeData;
     /**
      * @var callable 数据过滤函数
@@ -63,6 +65,30 @@ abstract class TreeData extends Factory
     }
 
     /**
+     * 设置子项目键名
+     *
+     * @param string $subDataName
+     * @return $this
+     */
+    public function setSubDataName(string $subDataName)
+    {
+        $this->subDataName = $subDataName;
+        return $this;
+    }
+
+    /**
+     * 设置返回时是否转换成数组
+     *
+     * @param bool $returnArray
+     * @return $this
+     */
+    public function setReturnArray(bool $returnArray)
+    {
+        $this->returnArray = $returnArray;
+        return $this;
+    }
+
+    /**
      * 设置原始数据
      *
      * @param array $data
@@ -97,9 +123,21 @@ abstract class TreeData extends Factory
             if (is_callable($this->filter)) {
                 $this->sourceData = array_filter($this->sourceData, $this->filter);
             }
-            $this->_treeData = $this->parseSourceData();
+            $treeData        = $this->parseSourceData();
+            $this->_treeData = $this->returnArray ? $this->toArrayData(release_json($treeData)) : $treeData;
         }
         return $this->_treeData;
+    }
+
+    /**
+     * 转换成数组
+     *
+     * @param array $data
+     * @return array
+     */
+    protected function toArrayData(array $data): array
+    {
+        return $data;
     }
 
     /**
