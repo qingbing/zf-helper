@@ -42,6 +42,8 @@
     - 增加Unicode编码转换: \Zf\Helper\Transfor\UnicodeHelper
     - 增加标点符号转换: \Zf\Helper\Transfor\SymbolHelper
     - 增加任意进制数转化十进制数: \Zf\Helper\Transfor\NumberHelper::baseToDec
+    - function中加入方法to_array
+    - 加入一些header常量
 
 
 # zf-helper
