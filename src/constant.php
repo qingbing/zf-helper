@@ -8,9 +8,9 @@
  * 常规常量定义
  */
 // 性别
-defined('SEX_UNKNOWN') or define('SEX_UNKNOWN', 0);
-defined('SEX_MALE') or define('SEX_MALE', 1);
-defined('SEX_FEMALE') or define('SEX_FEMALE', 2);
+defined('SEX_UNKNOWN') or define('SEX_UNKNOWN', "U");
+defined('SEX_MALE') or define('SEX_MALE', "M");
+defined('SEX_FEMALE') or define('SEX_FEMALE', "F");
 // 是否选择
 defined('IS_NO') or define('IS_NO', 0);
 defined('IS_YES') or define('IS_YES', 1);

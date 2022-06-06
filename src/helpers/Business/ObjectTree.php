@@ -59,7 +59,7 @@ class ObjectTree extends TreeData
                 unset($sourceData[$id]);
             }
         }
-        return $sourceData;
+        return array_values($sourceData);
     }
 
     /**
